@@ -22,6 +22,33 @@ export default function Home() {
         </div>
       </section>
 
+{/* BENEFIT ICONS (Carrd-style strip) */}
+      <section className="benefits">
+        <div className="container benefits-grid">
+          <div className="benefit">
+            <span className="emoji">⚡</span>
+            <div>
+              <h4>Live Scoring</h4>
+              <p>Stream claims; get truth scores in milliseconds.</p>
+            </div>
+          </div>
+          <div className="benefit">
+            <span className="emoji">🔗</span>
+            <div>
+              <h4>Evidence-First</h4>
+              <p>Transparent citations with reasoning trails.</p>
+            </div>
+          </div>
+          <div className="benefit">
+            <span className="emoji">🧩</span>
+            <div>
+              <h4>Plug & Play</h4>
+              <p>Simple APIs & SDKs for apps and agents.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FEATURES */}
       <section id="features" className="section">
         <div className="container">
