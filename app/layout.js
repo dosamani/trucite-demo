@@ -6,12 +6,12 @@ export default function RootLayout({ children }) {
       <body>
         <header style={{ display: "flex", alignItems: "center", padding: "1rem", background: "black", color: "gold" }}>
           <Image
-            src="/logo.jpg"
-            alt="TruCite Logo"
-            width={40}
-            height={40}
-            priority
-          />
+  src="/Logo.jpg"   // ← match the exact case: Logo.jpg vs logo.jpg
+  alt="TruCite Logo"
+  width={40}
+  height={40}
+  priority
+/>
           <h1 style={{ marginLeft: "0.5rem", color: "gold" }}>TruCite</h1>
           <nav style={{ marginLeft: "auto" }}>
             <a href="/" style={{ margin: "0 1rem", color: "white" }}>Home</a>
