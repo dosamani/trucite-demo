@@ -221,6 +221,24 @@ export default function Home() {
           border: 1px solid var(--border);
         }
         .btn-lg { height: 46px; padding: 0 22px; }
+
+        /* BENEFITS */
+.benefits {
+  background:#0e0e0e; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+.benefits-grid {
+  display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px;
+  padding: 20px 0;
+}
+@media (max-width:880px){ .benefits-grid { grid-template-columns: 1fr; } }
+
+.benefit {
+  display:flex; gap:14px; align-items:center;
+  background:#0c0c0c; border:1px solid var(--border); border-radius: 14px; padding:14px 16px;
+}
+.emoji { font-size:22px; width:28px; text-align:center; }
+.benefit h4 { margin:0 0 4px; color: var(--gold); font-size:16px; }
+.benefit p { margin:0; color: var(--muted); font-size:14px; }
       `}</style>
     </>
   );
