@@ -1,19 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import "./globals.css";
+
+export const metadata = {
+  title: "TruCite MVP",
+  description: "The Truth OS for AI",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <header style={{ display: "flex", alignItems: "center", padding: "1rem", background: "#0a192f", color: "white" }}>
-          <Image src="/logo.jpg" alt="TruCite Logo" width={40} height={40} />
-          <nav style={{ marginLeft: "1rem" }}>
-            <Link href="/" style={{ margin: "0 1rem" }}>Home</Link>
-            <Link href="/about" style={{ margin: "0 1rem" }}>About</Link>
+      <body style={{ margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            padding: "10px 16px",
+            backgroundColor: "#000",
+            borderBottom: "2px solid #D4AF37",
+          }}
+        >
+          <Image src="/logo.png" alt="TruCite logo" width={40} height={40} priority />
+          <span style={{ fontWeight: 700, fontSize: "1.2rem", color: "#D4AF37" }}>
+            TruCite
+          </span>
+          <nav style={{ marginLeft: "auto", display: "flex", gap: "20px" }}>
+            <Link href="/" style={{ color: "#fff", textDecoration: "none" }}>Home</Link>
+            <Link href="/about" style={{ color: "#fff", textDecoration: "none" }}>About</Link>
           </nav>
         </header>
-        <main>{children}</main>
+        <main style={{ padding: "2rem" }}>{children}</main>
       </body>
     </html>
   );
