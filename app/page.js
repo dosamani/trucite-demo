@@ -2,25 +2,21 @@
 export default function Home() {
   return (
     <>
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-inner">
-          <img
-            src="/logo.jpg"           // uses the file you uploaded to /public
-            alt="TruCite Logo"
-            className="hero-logo"
-          />
-          <h1 className="hero-title">Truth OS for AI</h1>
-          <p className="hero-sub">
-            A cross-platform, real-time engine for evaluating and scoring truth.
-          </p>
+    {/* HERO */}
+<section className="hero">
+  <div className="hero-inner">
+    <h1 className="hero-title">Welcome to TruCite</h1>
+    <p className="hero-sub">
+      The world’s first <strong>Truth OS</strong> for AI — a cross-platform,
+      real-time engine for evaluating and scoring truth.
+    </p>
 
-          <div className="hero-cta">
-            <a href="#features" className="btn btn-primary">Explore Features</a>
-            <a href="/about" className="btn btn-ghost">Learn More</a>
-          </div>
-        </div>
-      </section>
+    {/* NEW TAGLINE STRIP */}
+    <p className="hero-tagline">
+      ⚡ Fast • 🔗 Transparent • 🧩 Plug & Play
+    </p>
+  </div>
+</section>
 
 {/* BENEFIT ICONS (Carrd-style strip) */}
       <section className="benefits">
@@ -239,6 +235,13 @@ export default function Home() {
 .emoji { font-size:22px; width:28px; text-align:center; }
 .benefit h4 { margin:0 0 4px; color: var(--gold); font-size:16px; }
 .benefit p { margin:0; color: var(--muted); font-size:14px; }
+.hero-tagline {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
       `}</style>
     </>
   );
