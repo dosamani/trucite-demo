@@ -4,18 +4,9 @@ export default function Home() {
       <h1
         style={{
           fontSize: "2.5rem",
-          marginBottom: "1rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "0.5rem"
+          marginBottom: "1rem"
         }}
       >
-        <img
-          src="/logo.jpg"
-          alt="TruCite Logo"
-          style={{ width: "36px", height: "36px", objectFit: "contain" }}
-        />
         Welcome to TruCite
       </h1>
 
