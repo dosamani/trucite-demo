@@ -1,152 +1,287 @@
-export default function Home() {
-  return (
-    <main className="content">
-      {/* Hero Logo */}
-      <img 
-        src="/logo.jpg" 
-        alt="TruCite Logo" 
-        className="hero-logo"
-      />
+// app/page.js
+"use client";
+import { useState } from "react";
 
-      {/* Headline */}
-      <h1 className="hero-headline">
-        Welcome to <span className="highlight">TruCite</span>
+export default function Home() {
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState(null);
+  const [error, setError] = useState("");
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setRes(null);
+    if (!query.trim()) {
+      setError("Please paste a claim, answer, or snippet.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const r = await fetch("/api/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data?.error || "Request failed");
+      setRes(data);
+    } catch (err) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <main className="hero">
+      {/* Center logo */}
+      <img src="/logo.jpg" alt="TruCite" className="hero-logo" />
+
+      <h1 className="title">
+        Welcome to <span>TruCite</span>
       </h1>
 
-      {/* Subheadline */}
-      <p className="hero-subheadline">
-        The world’s first <b>Truth OS</b> for AI — a cross-platform, real-time engine 
-        for evaluating and scoring truth.
+      <p className="subtitle">
+        The world’s first <strong>Truth OS</strong> for AI — a cross-platform, real-time engine for
+        evaluating and scoring truth.
       </p>
 
-      {/* Input + Button */}
-      <div className="input-group fade-in-input">
-        <input 
-          type="text" 
-          placeholder="Paste a claim, answer, or snippet" 
+      <form className="checker" onSubmit={onSubmit}>
+        <input
+          placeholder="Paste a claim, answer, or snippet"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          disabled={loading}
+          aria-label="Claim input"
         />
-        <button className="pulse-button">Check Truth</button>
-      </div>
+        <button disabled={loading} aria-label="Check truth">
+          {loading ? "Checking…" : "Check Truth"}
+        </button>
+      </form>
 
-      {/* Features */}
-      <div className="features fade-in-features">
-        <span>⚡ Fast</span> · <span>🔗 Transparent</span> · <span>✨ Plug & Play</span>
-      </div>
+      {error && <p className="error">{error}</p>}
 
-      {/* Styles */}
+      {res && (
+        <section className="card">
+          <div className="scoreWrap">
+            <div className="score" data-score={res.truthScore}>
+              {res.truthScore}
+            </div>
+            <div className="verdict">{res.verdict}</div>
+            <div className="latency">~{res.latencyMs} ms</div>
+          </div>
+
+          <div className="evidence">
+            <h3>Evidence Summary</h3>
+            <p>{res.evidenceSummary}</p>
+
+            <h4>Citations</h4>
+            <ul className="cites">
+              {res.citations.map((c) => (
+                <li key={c.url}>
+                  <a href={c.url} target="_blank" rel="noopener noreferrer">
+                    {c.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <h4>Risk Flags</h4>
+            <div className="badges">
+              {res.risks.map((r, i) => (
+                <span key={i} className="badge">{r}</span>
+              ))}
+            </div>
+
+            <p className="notes">{res.modelNotes}</p>
+          </div>
+        </section>
+      )}
+
+      <p className="pillars">
+        ⚡ Fast · 🔗 Transparent · ✨ Plug & Play
+      </p>
+
       <style jsx>{`
-        .content {
-          min-height: 100vh;
-          background: linear-gradient(to bottom, #111, #000);
-          color: #fff;
-          text-align: center;
-          padding: 4rem 1rem;
-          font-family: Arial, sans-serif;
-        }
-
-        /* Hero Logo */
-        .hero-logo {
-          width: 90px;
-          margin: 0 auto 20px;
-          opacity: 0;
-          transform: scale(0.9);
-          animation: fadeInScale 1.2s ease-out forwards;
-        }
-
-        /* Headline */
-        .hero-headline {
-          font-size: 2rem;
-          margin-bottom: 1rem;
-          opacity: 0;
-          transform: translateY(10px);
-          animation: fadeInUp 1s ease-out forwards;
-          animation-delay: 1s;
-        }
-
-        .highlight {
-          color: #f2c94c;
-        }
-
-        /* Subheadline */
-        .hero-subheadline {
-          max-width: 600px;
-          margin: 0 auto 2rem;
-          font-size: 1.1rem;
-          line-height: 1.6;
-          color: #ddd;
-          opacity: 0;
-          animation: fadeIn 1s ease-out forwards;
-          animation-delay: 2s;
-        }
-
-        /* Input Section */
-        .input-group {
+        .hero {
+          min-height: calc(100dvh - 64px);
+          padding: 3.5rem 1.25rem 2rem;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
           align-items: center;
-          margin-bottom: 2rem;
-          opacity: 0;
-          transform: translateY(10px);
-          animation: fadeInUp 1s ease-out forwards;
-          animation-delay: 3s;
+          text-align: center;
+          color: #eee;
+          background: radial-gradient(1000px 600px at 50% -200px, rgba(255,215,0,0.06), transparent 60%),
+                      linear-gradient(#0b0b0b, #0b0b0b);
         }
-
-        input {
-          padding: 0.75rem 1rem;
-          border-radius: 8px 0 0 8px;
-          border: none;
+        .hero-logo {
+          width: 78px;
+          height: 78px;
+          object-fit: contain;
+          margin: 8px 0 22px;
+          border-radius: 12px;
+          box-shadow: 0 0 0 1px rgba(242,196,76,0.12), 0 6px 24px rgba(0,0,0,0.4);
+        }
+        .title {
+          font-size: clamp(28px, 6.4vw, 54px);
+          line-height: 1.1;
+          margin: 0 0 10px;
+          letter-spacing: 0.2px;
+          color: #e9e9e9;
+        }
+        .title span {
+          color: #f2c94c;
+          text-shadow: 0 0 24px rgba(242,201,76,0.18);
+        }
+        .subtitle {
+          max-width: 860px;
+          color: #cfcfcf;
+          font-size: clamp(16px, 3.4vw, 22px);
+          line-height: 1.55;
+          margin: 6px auto 18px;
+        }
+        .checker {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin: 14px auto 14px;
+          max-width: 900px;
+          width: min(92vw, 900px);
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 16px;
+          padding: 10px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+          backdrop-filter: blur(4px);
+        }
+        .checker input {
+          flex: 1;
+          background: rgba(0,0,0,0.4);
+          color: #ddd;
+          border: 1px solid rgba(255,255,255,0.08);
+          padding: 14px 16px;
+          font-size: 16px;
           outline: none;
-          width: 250px;
-          background: #222;
-          color: #fff;
+          border-radius: 12px;
         }
-
-        button {
-          padding: 0.75rem 1.25rem;
-          border-radius: 0 8px 8px 0;
+        .checker input:disabled {
+          opacity: 0.7;
+        }
+        .checker button {
+          background: linear-gradient(135deg, #f6cf63, #e7a93a);
+          color: #1a1a1a;
           border: none;
-          background: linear-gradient(90deg, #f2c94c, #f2994a);
-          color: #000;
-          font-weight: bold;
+          font-weight: 800;
+          padding: 14px 18px;
+          border-radius: 12px;
+          min-width: 128px;
           cursor: pointer;
-          opacity: 0;
-          animation: fadeInScale 0.8s ease-out forwards;
-          animation-delay: 3.5s;
+          box-shadow: 0 6px 22px rgba(242,196,76,0.25);
         }
-
-        .pulse-button {
-          animation: fadeInScale 0.8s ease-out forwards, pulse 1.5s ease-in-out 4s infinite;
+        .checker button[disabled] {
+          opacity: 0.75;
+          cursor: not-allowed;
         }
-
-        /* Features Row */
-        .features {
-          margin-top: 1.5rem;
-          color: #ccc;
-          font-size: 0.95rem;
-          opacity: 0;
-          animation: fadeIn 1s ease-out forwards;
-          animation-delay: 4.5s;
+        .error {
+          color: #ff8877;
+          margin: 8px 0 0;
+          font-size: 14px;
         }
-
-        /* Animations */
-        @keyframes fadeInScale {
-          0% { opacity: 0; transform: scale(0.9); }
-          100% { opacity: 1; transform: scale(1); }
+        .card {
+          display: grid;
+          grid-template-columns: 160px 1fr;
+          gap: 20px;
+          width: min(980px, 92vw);
+          margin: 18px auto 0;
+          padding: 18px;
+          border-radius: 16px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: 0 18px 60px rgba(0,0,0,0.45);
         }
-
-        @keyframes fadeInUp {
-          0% { opacity: 0; transform: translateY(10px); }
-          100% { opacity: 1; transform: translateY(0); }
+        @media (max-width: 680px) {
+          .card { grid-template-columns: 1fr; }
         }
-
-        @keyframes fadeIn {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
+        .scoreWrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
         }
-
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
+        .score {
+          --val: attr(data-score number, 50);
+          width: 96px;
+          height: 96px;
+          border-radius: 999px;
+          display: grid;
+          place-items: center;
+          font-weight: 900;
+          font-size: 28px;
+          color: #1b1b1b;
+          background: conic-gradient(#f2c94c calc(var(--val) * 1%), #333 calc(var(--val) * 1%));
+          box-shadow: inset 0 0 0 6px #111, 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .verdict {
+          font-weight: 800;
+          color: #f2c94c;
+          letter-spacing: 0.3px;
+        }
+        .latency {
+          font-size: 12px;
+          color: #aaa;
+        }
+        .evidence h3 {
+          margin: 6px 0 8px;
+          font-size: 18px;
+          color: #f1f1f1;
+        }
+        .evidence h4 {
+          margin: 14px 0 6px;
+          font-size: 14px;
+          color: #d7d7d7;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .evidence p {
+          margin: 0;
+          color: #d8d8d8;
+          line-height: 1.5;
+        }
+        .cites {
+          margin: 4px 0 0 18px;
+          padding: 0;
+          color: #cfcfcf;
+        }
+        .cites li { margin: 4px 0; }
+        .cites a {
+          color: #f2c94c;
+          text-decoration: none;
+        }
+        .cites a:hover { text-decoration: underline; }
+        .badges {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 6px;
+        }
+        .badge {
+          background: rgba(242,201,76,0.12);
+          border: 1px solid rgba(242,201,76,0.35);
+          color: #f2c94c;
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-size: 12px;
+        }
+        .notes {
+          margin-top: 10px;
+          font-size: 12px;
+          color: #9e9e9e;
+        }
+        .pillars {
+          margin: 18px 0 0;
+          color: #c9c9c9;
         }
       `}</style>
     </main>
