@@ -7,33 +7,29 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
-  function hashToScore(s) {
-    // deterministic 0–100 “truth score”
+  const hashToScore = (s) => {
     let h = 0;
     for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
-    return (h % 101);
-  }
-
-  function labelFromScore(score) {
+    return h % 101;
+  };
+  const labelFromScore = (score) => {
     if (score >= 80) return { label: "Likely True", color: "#16a34a" };
     if (score >= 60) return { label: "Needs Review", color: "#f59e0b" };
     if (score >= 40) return { label: "Uncertain", color: "#f59e0b" };
     if (score >= 20) return { label: "Likely False", color: "#ef4444" };
     return { label: "Unsupported", color: "#ef4444" };
-  }
+  };
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) return;
     setLoading(true);
-    // simulate latency
     setTimeout(() => {
       const score = hashToScore(query.trim());
       const meta = labelFromScore(score);
       setResult({
         score,
         ...meta,
-        // mocked citations
         citations: [
           { title: "Source A", url: "#", verdict: "supports" },
           { title: "Source B", url: "#", verdict: "neutral" },
@@ -41,19 +37,20 @@ export default function Home() {
         ],
       });
       setLoading(false);
-    }, 500);
+    }, 450);
   };
 
   return (
-    <main className="home">
-      <h1 className="heroTitle">Welcome to <span>TruCite</span></h1>
+    <section className="home">
+      <h1 className="heroTitle">
+        Welcome to <span>TruCite</span>
+      </h1>
       <p className="heroSubtitle">
-        The world’s first <strong>Truth OS</strong> for AI — a cross-platform, real-time engine
-        for evaluating and scoring truth.
+        The world’s first <strong>Truth OS</strong> for AI — a cross-platform, real-time engine for
+        evaluating and scoring truth.
       </p>
 
-      {/* Mocked Demo */}
-      <section className="demo">
+      <div className="demo">
         <form onSubmit={onSubmit} className="inputRow">
           <input
             className="queryInput"
@@ -90,9 +87,7 @@ export default function Home() {
               <ul>
                 {result.citations.map((c, i) => (
                   <li key={i}>
-                    <span className={`badge ${c.verdict}`}>
-                      {c.verdict}
-                    </span>
+                    <span className={`badge ${c.verdict}`}>{c.verdict}</span>
                     <a href={c.url}>{c.title}</a>
                   </li>
                 ))}
@@ -100,16 +95,14 @@ export default function Home() {
             </div>
 
             <div className="disclaimer">
-              * Demo is mocked — no external calls. Real scoring uses retrieval evaluation,
-              citation grounding, hallucination detection, and abstain/deferral logic.
+              * Demo is mocked — no external calls. Real scoring uses retrieval evaluation, citation
+              grounding, hallucination detection, and abstain/deferral logic.
             </div>
           </div>
         )}
-      </section>
+      </div>
 
-      <p className="pillars">
-        ⚡ Fast · 🔗 Transparent · ✨ Plug &amp; Play
-      </p>
-    </main>
+      <p className="pillars">⚡ Fast · 🔗 Transparent · ✨ Plug &amp; Play</p>
+    </section>
   );
 }
