@@ -30,7 +30,6 @@ export default function Home() {
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
       const data = await res.json();
-      // Be permissive with field names from the mock API
       const normalized = {
         score: clamp01(
           data.score ??
@@ -45,7 +44,6 @@ export default function Home() {
       setResult(normalized);
     } catch (err) {
       setError("Something went wrong. Please try again.");
-      // console.error(err);
     } finally {
       setLoading(false);
     }
@@ -82,8 +80,8 @@ export default function Home() {
         </form>
 
         {error && <div className="error">{error}</div>}
-
         {result && <ResultCard result={result} />}
+
         <p className="pills">
           <span>⚡ Fast</span> · <span>🔗 Transparent</span> ·{" "}
           <span>✨ Plug &amp; Play</span>
@@ -143,33 +141,40 @@ export default function Home() {
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 14px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+          overflow: hidden;
         }
         .claim {
-          flex: 1;
-          min-width: 8rem;
-          padding: 1rem 1.1rem;
+          flex: 1 1 auto;
+          min-width: 7rem;
+          padding: 0.9rem 1rem;
           border-radius: 10px;
           border: 0;
           outline: none;
           background: rgba(0, 0, 0, 0.35);
           color: #fff;
-          font-size: 1rem;
+          font-size: clamp(0.95rem, 3.2vw, 1.05rem);
         }
         .claim::placeholder {
           color: #a9a9a9;
         }
         .cta {
-          white-space: nowrap;
-          padding: 0 1.1rem;
+          flex: 0 0 auto;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 1rem;
+          min-width: 9.5rem;
+          line-height: 1.1;
           border-radius: 10px;
           border: 0;
           font-weight: 700;
-          font-size: 1rem;
+          font-size: clamp(0.95rem, 3vw, 1rem);
           cursor: pointer;
           color: #181818;
           background: linear-gradient(135deg, #ffd76a, #f2c94c, #d0a52a);
           box-shadow: 0 10px 30px rgba(242, 201, 76, 0.25);
           transition: transform 0.08s ease, filter 0.08s ease, box-shadow 0.08s ease;
+          white-space: nowrap;
         }
         .cta:disabled {
           opacity: 0.7;
@@ -179,6 +184,26 @@ export default function Home() {
           transform: translateY(1px);
           filter: brightness(0.97);
           box-shadow: 0 6px 18px rgba(242, 201, 76, 0.2);
+        }
+
+        /* Mobile fix */
+        @media (max-width: 520px) {
+          .checker {
+            flex-direction: column;
+            padding: 0.5rem;
+            gap: 0.5rem;
+          }
+          .claim {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            font-size: 1rem;
+          }
+          .cta {
+            width: 100%;
+            min-width: 0;
+            padding: 0.9rem 1rem;
+            white-space: normal;
+          }
         }
 
         .error {
@@ -206,9 +231,9 @@ function ResultCard({ result }) {
   const color = scoreColor(result.score ?? 0);
 
   return (
-    <div className="card" role="status" aria-live="polite">
+    <div className="card">
       <div className="top">
-        <div className="dial" aria-label={`Truth score ${scorePct} out of 100`}>
+        <div className="dial">
           <div
             className="ring"
             style={{
@@ -220,7 +245,6 @@ function ResultCard({ result }) {
             <div className="label">/100</div>
           </div>
         </div>
-
         <div className="verdict">
           <div className="badge" style={{ color, borderColor: color }}>
             {result.verdict}
@@ -228,169 +252,17 @@ function ResultCard({ result }) {
           {result.notes && <p className="notes">{result.notes}</p>}
         </div>
       </div>
-
-      {Array.isArray(result.citations) && result.citations.length > 0 && (
-        <div className="section">
-          <h3>Citations</h3>
-          <ul className="list">
-            {result.citations.map((c, i) => (
-              <li key={i}>
-                <a href={c.url} target="_blank" rel="noopener noreferrer">
-                  {c.title || c.url || "Source"}
-                </a>
-                {typeof c.confidence === "number" && (
-                  <span className="small"> · conf {Math.round(c.confidence * 100)}%</span>
-                )}
-                {c.source && <span className="muted"> · {c.source}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {Array.isArray(result.risks) && result.risks.length > 0 && (
-        <div className="section">
-          <h3>Risks & Flags</h3>
-          <div className="chips">
-            {result.risks.map((r, i) => (
-              <span className="chip" key={i}>
-                {r}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        .card {
-          margin: 1rem auto 0.75rem;
-          max-width: 860px;
-          text-align: left;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
-          padding: 1rem;
-          box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
-        }
-        .top {
-          display: grid;
-          grid-template-columns: 130px 1fr;
-          gap: 1rem;
-          align-items: center;
-        }
-        @media (max-width: 640px) {
-          .top {
-            grid-template-columns: 1fr;
-            text-align: center;
-            justify-items: center;
-          }
-        }
-        .dial {
-          position: relative;
-          width: 120px;
-          height: 120px;
-        }
-        .ring {
-          position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          padding: 8px;
-          background-origin: border-box;
-          mask: radial-gradient(#0000 55%, #000 56%);
-          -webkit-mask: radial-gradient(#0000 55%, #000 56%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .center {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          border-radius: 50%;
-          background: #111;
-        }
-        .pct {
-          font-size: 1.8rem;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-        }
-        .label {
-          font-size: 0.75rem;
-          color: #bbb;
-        }
-        .verdict .badge {
-          display: inline-block;
-          padding: 0.25rem 0.6rem;
-          border-radius: 999px;
-          border: 1px solid;
-          font-weight: 700;
-          letter-spacing: 0.02em;
-          background: rgba(0, 0, 0, 0.35);
-        }
-        .notes {
-          margin: 0.5rem 0 0;
-          color: #ddd;
-        }
-        .section {
-          margin-top: 1rem;
-        }
-        .section h3 {
-          margin: 0 0 0.5rem;
-          font-size: 1rem;
-          color: #f2c94c;
-        }
-        .list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        .list li {
-          margin: 0.35rem 0;
-          line-height: 1.4;
-        }
-        .list a {
-          color: #eaeaea;
-          text-decoration: underline;
-          text-underline-offset: 2px;
-        }
-        .small {
-          color: #cfcfcf;
-          font-size: 0.85rem;
-        }
-        .muted {
-          color: #a9a9a9;
-          font-size: 0.9rem;
-        }
-        .chips {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.4rem;
-        }
-        .chip {
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 0.25rem 0.6rem;
-          border-radius: 999px;
-          font-size: 0.9rem;
-          color: #eee;
-        }
-      `}</style>
     </div>
   );
 }
 
-/* helpers */
 function clamp01(x) {
   if (typeof x !== "number" || Number.isNaN(x)) return 0;
   return Math.max(0, Math.min(1, x));
 }
 
 function scoreColor(s) {
-  // green -> yellow -> red
-  const t = clamp01(s);
-  if (t >= 0.7) return "#3bd673";
-  if (t >= 0.4) return "#f2c94c";
+  if (s >= 0.7) return "#3bd673";
+  if (s >= 0.4) return "#f2c94c";
   return "#ff6b6b";
 }
-```0
