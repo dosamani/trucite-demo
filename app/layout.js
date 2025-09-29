@@ -1,6 +1,9 @@
 export const metadata = {
   title: "TruCite",
   description: "The Truth OS for AI",
+  icons: {
+    icon: "/favicon.ico",   // Path to your favicon in public folder
+  },
 };
 
 export default function RootLayout({ children }) {
