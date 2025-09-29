@@ -30,6 +30,7 @@ export default function Home() {
       </div>
 
       <style jsx>{`
+        /* --- palette --- */
         :root {
           --gold: #f2c94c;
           --gold-200: #f6d87b;
@@ -41,9 +42,9 @@ export default function Home() {
           --shadow: 0 10px 30px rgba(0,0,0,0.35);
         }
 
+        /* --- container --- */
         .hero {
-          /* tighter top spacing under the header */
-          padding: clamp(16px, 3vh, 28px) 18px 40px;
+          padding: 10px 18px 40px;             /* tighter top spacing */
           max-width: 980px;
           margin: 0 auto;
           text-align: center;
@@ -54,7 +55,7 @@ export default function Home() {
           height: auto;
           border-radius: 14px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset;
-          margin: clamp(8px, 1.8vh, 18px) auto clamp(8px, 1.6vh, 14px);
+          margin: 8px auto 8px;                /* small gap under header */
           display: block;
         }
 
@@ -63,37 +64,34 @@ export default function Home() {
           line-height: 1.12;
           letter-spacing: 0.2px;
           font-weight: 700;
-          margin: 0;
+          margin: 6px 0 0 0;
           color: var(--ink);
         }
-        .title span {
-          color: var(--gold);
-        }
+        .title span { color: var(--gold); }
 
         .subtitle {
           max-width: 820px;
-          margin: clamp(10px, 2vh, 18px) auto clamp(16px, 2.8vh, 22px);
+          margin: 10px auto 16px;
           font-size: clamp(16px, 3.6vw, 22px);
           line-height: 1.5;
           color: var(--muted);
         }
         .subtitle strong { color: var(--ink); }
 
-        /* INPUT + BUTTON */
+        /* --- input + button (side-by-side on mobile too) --- */
         .inputRow {
           display: grid;
-          grid-template-columns: 1fr auto;
+          grid-template-columns: 1fr auto;     /* keep horizontal on mobile */
           gap: 10px;
           align-items: center;
           width: min(780px, 100%);
-          margin: 0 auto clamp(12px, 3vh, 18px);
+          margin: 0 auto 14px;
           padding: 10px;
           background: var(--panel);
           border: 1px solid var(--panel-border);
           border-radius: 16px;
           box-shadow: var(--shadow);
         }
-
         .inputEl {
           background: rgba(255,255,255,0.06);
           color: var(--ink);
@@ -103,13 +101,13 @@ export default function Home() {
           height: 48px;
           padding: 0 14px;
           font-size: clamp(15px, 3.8vw, 18px);
-          text-align: center; /* center the text as you type */
+          text-align: center !important;                  /* force center */
         }
+        /* fight any global placeholder styles */
         .inputEl::placeholder { 
           color: #b9b9bf;
-          text-align: center; /* center the placeholder text */
+          text-align: center !important;
         }
-
         .cta {
           height: 48px;
           padding: 0 18px;
@@ -120,18 +118,19 @@ export default function Home() {
           color: #1b1400;
           background: linear-gradient(135deg, var(--gold), var(--gold-200) 60%, var(--gold-300));
           box-shadow: 0 8px 20px rgba(242, 201, 76, 0.25);
-          cursor: pointer;
           white-space: nowrap;
+          min-width: 126px;                                /* keeps button visible on small screens */
+          cursor: pointer;
         }
 
-        /* TAGLINE PILLS — aligned in a single centered row with breathing room */
+        /* --- tagline pills --- */
         .pillRow {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 14px;
+          gap: 12px;
           flex-wrap: wrap;
-          margin: clamp(10px, 2.6vh, 20px) auto 0;
+          margin: 10px auto 0;
           color: var(--muted);
           font-size: clamp(14px, 3.6vw, 18px);
         }
@@ -145,22 +144,13 @@ export default function Home() {
           border: 1px solid var(--panel-border);
           color: var(--ink);
         }
-        .dot {
-          opacity: 0.6;
-          user-select: none;
-        }
+        .dot { opacity: 0.6; user-select: none; }
 
-        /* Mobile tweaks */
+        /* do NOT stack the button on mobile; just compress spacing */
         @media (max-width: 420px) {
-          .inputRow {
-            grid-template-columns: 1fr;
-          }
-          .cta {
-            width: 100%;
-          }
-          .pillRow {
-            gap: 10px;
-          }
+          .hero { padding-top: 8px; }
+          .inputRow { gap: 8px; padding: 8px; }
+          .cta { padding: 0 14px; min-width: 112px; }
         }
       `}</style>
     </main>
