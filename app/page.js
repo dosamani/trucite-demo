@@ -8,20 +8,19 @@ export default function Home() {
       </h1>
 
       <p className="subtitle">
-        The world’s first <strong>Truth OS</strong> for AI — a cross-platform, real-time engine for evaluating and
-        scoring truth.
+        The world’s first <strong>Truth OS</strong> for AI — a cross-platform, real-time engine for evaluating and scoring truth.
       </p>
 
       <form className="inputRow" onSubmit={(e)=>e.preventDefault()}>
         <input
-          className="inputEl"
+          className="inputEl truInput"
           placeholder="Paste a claim, answer, or snippet"
           aria-label="Claim or snippet"
         />
         <button className="cta" type="submit">Check Truth</button>
       </form>
 
-      <div className="pillRow" aria-label="Product benefits">
+      <div className="pillRow">
         <span className="pill">⚡ Fast</span>
         <span className="dot">·</span>
         <span className="pill">🔗 Transparent</span>
@@ -30,127 +29,34 @@ export default function Home() {
       </div>
 
       <style jsx>{`
-        /* --- palette --- */
-        :root {
-          --gold: #f2c94c;
-          --gold-200: #f6d87b;
-          --gold-300: #f9e8a9;
-          --ink: #e9e9ea;
-          --muted: #c8c8cc;
-          --panel: rgba(255,255,255,0.04);
-          --panel-border: rgba(255,255,255,0.06);
-          --shadow: 0 10px 30px rgba(0,0,0,0.35);
+        :root{
+          --gold:#f2c94c;--gold2:#f6d87b;--gold3:#f9e8a9;
+          --ink:#e9e9ea;--muted:#c8c8cc;--panel:rgba(255,255,255,.04);--panelB:rgba(255,255,255,.06);
         }
+        .hero{padding:8px 18px 40px;max-width:980px;margin:0 auto;text-align:center;}
+        .logo{width:clamp(70px,12vw,120px);display:block;margin:6px auto 8px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.06) inset;}
+        .title{font-size:clamp(28px,5.8vw,56px);line-height:1.12;margin:4px 0 0;color:var(--ink);font-weight:700;}
+        .title span{color:var(--gold);}
+        .subtitle{max-width:820px;margin:8px auto 14px;font-size:clamp(16px,3.6vw,22px);line-height:1.5;color:var(--muted);}
+        .subtitle strong{color:var(--ink);}
 
-        /* --- container --- */
-        .hero {
-          padding: 10px 18px 40px;             /* tighter top spacing */
-          max-width: 980px;
-          margin: 0 auto;
-          text-align: center;
-        }
+        .inputRow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;width:min(780px,100%);margin:0 auto 14px;padding:10px;background:var(--panel);border:1px solid var(--panelB);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+        .inputEl{background:rgba(255,255,255,.06);color:var(--ink);border:1px solid rgba(255,255,255,.08);border-radius:12px;height:48px;padding:0 14px;font-size:clamp(15px,3.8vw,18px);text-align:center !important;}
+        /* strongest placeholder centering */
+        .truInput::-webkit-input-placeholder{text-align:center !important;color:#b9b9bf;}
+        .truInput::-moz-placeholder{text-align:center !important;color:#b9b9bf;opacity:1;}
+        .truInput:-ms-input-placeholder{text-align:center !important;color:#b9b9bf;}
+        .truInput::placeholder{text-align:center !important;color:#b9b9bf;}
+        .cta{height:48px;padding:0 18px;border-radius:12px;border:0;font-weight:700;font-size:clamp(14px,3.6vw,18px);color:#1b1400;background:linear-gradient(135deg,var(--gold),var(--gold2) 60%,var(--gold3));box-shadow:0 8px 20px rgba(242,201,76,.25);white-space:nowrap;min-width:126px;cursor:pointer;}
 
-        .logo {
-          width: clamp(70px, 12vw, 120px);
-          height: auto;
-          border-radius: 14px;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset;
-          margin: 8px auto 8px;                /* small gap under header */
-          display: block;
-        }
+        .pillRow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px auto 0;color:var(--muted);font-size:clamp(14px,3.6vw,18px);}
+        .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--panelB);color:var(--ink);}
+        .dot{opacity:.6;user-select:none}
 
-        .title {
-          font-size: clamp(28px, 5.8vw, 56px);
-          line-height: 1.12;
-          letter-spacing: 0.2px;
-          font-weight: 700;
-          margin: 6px 0 0 0;
-          color: var(--ink);
-        }
-        .title span { color: var(--gold); }
-
-        .subtitle {
-          max-width: 820px;
-          margin: 10px auto 16px;
-          font-size: clamp(16px, 3.6vw, 22px);
-          line-height: 1.5;
-          color: var(--muted);
-        }
-        .subtitle strong { color: var(--ink); }
-
-        /* --- input + button (side-by-side on mobile too) --- */
-        .inputRow {
-          display: grid;
-          grid-template-columns: 1fr auto;     /* keep horizontal on mobile */
-          gap: 10px;
-          align-items: center;
-          width: min(780px, 100%);
-          margin: 0 auto 14px;
-          padding: 10px;
-          background: var(--panel);
-          border: 1px solid var(--panel-border);
-          border-radius: 16px;
-          box-shadow: var(--shadow);
-        }
-        .inputEl {
-          background: rgba(255,255,255,0.06);
-          color: var(--ink);
-          border: 1px solid rgba(255,255,255,0.08);
-          outline: none;
-          border-radius: 12px;
-          height: 48px;
-          padding: 0 14px;
-          font-size: clamp(15px, 3.8vw, 18px);
-          text-align: center !important;                  /* force center */
-        }
-        /* fight any global placeholder styles */
-        .inputEl::placeholder { 
-          color: #b9b9bf;
-          text-align: center !important;
-        }
-        .cta {
-          height: 48px;
-          padding: 0 18px;
-          border-radius: 12px;
-          border: 0;
-          font-weight: 700;
-          font-size: clamp(14px, 3.6vw, 18px);
-          color: #1b1400;
-          background: linear-gradient(135deg, var(--gold), var(--gold-200) 60%, var(--gold-300));
-          box-shadow: 0 8px 20px rgba(242, 201, 76, 0.25);
-          white-space: nowrap;
-          min-width: 126px;                                /* keeps button visible on small screens */
-          cursor: pointer;
-        }
-
-        /* --- tagline pills --- */
-        .pillRow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          flex-wrap: wrap;
-          margin: 10px auto 0;
-          color: var(--muted);
-          font-size: clamp(14px, 3.6vw, 18px);
-        }
-        .pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 10px;
-          border-radius: 999px;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid var(--panel-border);
-          color: var(--ink);
-        }
-        .dot { opacity: 0.6; user-select: none; }
-
-        /* do NOT stack the button on mobile; just compress spacing */
-        @media (max-width: 420px) {
-          .hero { padding-top: 8px; }
-          .inputRow { gap: 8px; padding: 8px; }
-          .cta { padding: 0 14px; min-width: 112px; }
+        @media (max-width:420px){
+          .hero{padding-top:6px;}
+          .inputRow{gap:8px;padding:8px;}
+          .cta{padding:0 14px;min-width:112px;}
         }
       `}</style>
     </main>
