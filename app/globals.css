@@ -1,37 +1,48 @@
-/* ======= TruCite Dark Theme ======= */
-:root{
-  --bg:#0a0a0a;        /* near-black */
-  --panel:#111;        /* header/panel */
-  --muted:#888;        /* secondary text */
-  --text:#f5f5f5;      /* primary text */
-  --gold:#f2c94c;      /* brand accent */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #000;   /* dark mode */
+  color: #eee;        /* light text */
 }
 
-*{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; font-family: system-ui,-apple-system,"Segoe UI",Inter,Roboto,Arial; }
-
-body{
-  background: radial-gradient(900px 320px at 50% -80px, rgba(242,201,76,0.10), transparent 65%) , var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+.site-header {
+  background: #000;
+  padding: 0.8rem 1rem;
 }
 
-/* Header / nav */
-.site-header{ background: var(--panel); color:#fff; }
-.wrap{
-  max-width: 980px; margin: 0 auto; padding: 12px 16px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+.site-header .wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.brand{ display:flex; align-items:center; gap:10px; }
-.brand img{ width: 24px; height: 24px; object-fit: contain; }
-.brand span{ font-weight: 800; color: var(--gold); font-size: 20px; letter-spacing: .3px; }
-nav a{ color:#fff; margin-left: 18px; font-weight: 600; text-decoration: none; opacity:.95; }
-nav a:hover{ opacity: .8; }
 
-/* Accent bar + content */
-.goldbar{ height:3px; background: var(--gold); }
-.content{ max-width: 980px; margin: 28px auto; padding: 0 16px 80px; }
+.brand {
+  display: flex;
+  align-items: center;
+}
 
-/* Utility */
-.muted{ color: var(--muted); }
-.center{ text-align:center; }
+.brand span {
+  font-weight: 800;
+  color: #f2c94c; /* gold */
+  font-size: 1.2rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.goldbar {
+  height: 3px;
+  background: #f2c94c; /* gold line under header */
+}
+
+.content {
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
