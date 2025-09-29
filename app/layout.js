@@ -1,3 +1,4 @@
+import './globals.css';
 export const metadata = {
   title: "TruCite",
   description: "The Truth OS for AI",
