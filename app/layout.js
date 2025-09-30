@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
             </div>
             <nav>
   <a href="/">Home</a>
-  <a href="/aboutus">About</a>
+  <a href="/about">About</a>
 </nav>
           </div>
         </header>
