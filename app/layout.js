@@ -1,4 +1,5 @@
 import "./globals.css";
+import Link from "next/link";
 
 export const metadata = {
   title: "TruCite",
@@ -16,11 +17,12 @@ export default function RootLayout({ children }) {
               <span>TruCite</span>
             </div>
             <nav>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
-</nav>
+              <Link href="/">Home</Link>
+              <Link href="/about">About</Link> {/* ✅ fixed link */}
+            </nav>
           </div>
         </header>
+
         <div className="goldbar" />
         <main className="content">{children}</main>
       </body>
