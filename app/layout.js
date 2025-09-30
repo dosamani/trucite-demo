@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
               <span>TruCite</span>
             </div>
             <nav>
-              <a href="/">Home</a>
-              <a href="/about">About</a>
-            </nav>
+  <a href="/">Home</a>
+  <a href="/aboutus">About</a>
+</nav>
           </div>
         </header>
         <div className="goldbar" />
