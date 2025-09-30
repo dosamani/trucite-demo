@@ -1,14 +1,9 @@
 export default function About() {
   return (
     <main className="about">
-      <h1 className="title">About TruCite</h1>
+      <h1 className="title">Hello About Page</h1>
       <p className="content">
-        TruCite is building the <strong>Truth OS</strong> for AI — a transparent, 
-        real-time scoring and verification layer that helps teams evaluate the 
-        factuality and reliability of AI outputs.
-      </p>
-      <p className="content">
-        This MVP demo uses mocked data to illustrate the end-to-end flow.
+        ✅ If you can see this text at <code>/about</code>, the route is working correctly.
       </p>
 
       <style jsx>{`
@@ -28,7 +23,6 @@ export default function About() {
           font-size: clamp(16px, 3vw, 20px);
           line-height: 1.6;
           color: #e9e9ea;
-          margin-bottom: 16px;
         }
       `}</style>
     </main>
