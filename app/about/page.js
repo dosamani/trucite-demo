@@ -1,3 +1,5 @@
+"use client";
+
 // app/about/page.js
 export default function About() {
   return (
