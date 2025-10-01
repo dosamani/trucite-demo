@@ -26,6 +26,6 @@ export default function RootLayout({ children }) {
         <div className="goldbar" />
         <main className="content">{children}</main>
       </body>
-    </html>
+    </html> 
   );
 }
