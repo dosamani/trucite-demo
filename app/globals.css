@@ -1,3 +1,35 @@
+.tc-input::placeholder {
+  color: #cfcfcf;
+  opacity: 1;
+  text-align: center;
+}
+
+.tc-cta {
+  height: 56px;
+  padding: 0 18px;
+  border-radius: 14px;
+  font-weight: 800;
+  border: none;
+  background: #f2c94c;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+.tc-cta:disabled { opacity: .7; cursor: not-allowed; }
+
+.tc-link {
+  color: #f2c94c;
+  text-decoration: none;
+  font-weight: 600;
+}
+.tc-link:hover { text-decoration: underline; }
+
+.tc-logo {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
 /* Reset + dark theme background */
 html, body {
   margin: 0;
