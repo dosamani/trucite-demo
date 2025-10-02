@@ -1,10 +1,15 @@
 "use client";
 import { useState } from "react";
 
-// 🔗 Live links (FAQ doc, Suggestions form, Contact email)
+// 🔗 Live links
 const FAQ_URL       = "https://docs.google.com/document/d/1WF0NB9fnxhDPEi_arGSp18Kev9KXdoX-IePIE8KJgCQ/edit";
 const SUGGEST_URL   = "https://forms.gle/kJz3nVJ3tZqgF5Qm6";
 const CONTACT_EMAIL = "mailto:founder@trucite.ai";
+
+// Placeholder Google Docs for MVP demo
+const TERMS_URL      = "https://docs.google.com/document/d/1abc123DEMOtermsURL/edit";
+const PRIVACY_URL    = "https://docs.google.com/document/d/1abc123DEMOprivacyURL/edit";
+const DISCLAIMER_URL = "https://docs.google.com/document/d/1abc123DEMOdisclaimerURL/edit";
 
 const wrap = {
   maxWidth: 980,
@@ -57,7 +62,7 @@ export default function Home() {
 
   return (
     <main style={wrap}>
-      {/* Logo cleanup (no outlines) */}
+      {/* Logo cleanup */}
       <section style={{ marginTop: 18 }}>
         <img
           src="/logo.jpg"
@@ -172,9 +177,9 @@ export default function Home() {
         <a href={FAQ_URL} target="_blank" rel="noreferrer" className="tc-link">FAQ</a>
         <a href={CONTACT_EMAIL} className="tc-link">Contact Us</a>
         <a href={SUGGEST_URL} target="_blank" rel="noreferrer" className="tc-link">Suggestions</a>
-        <a href="/terms" className="tc-link">Terms</a>
-        <a href="/privacy" className="tc-link">Privacy</a>
-        <a href="/disclaimer" className="tc-link">Disclaimer</a>
+        <a href={TERMS_URL} target="_blank" rel="noreferrer" className="tc-link">Terms</a>
+        <a href={PRIVACY_URL} target="_blank" rel="noreferrer" className="tc-link">Privacy</a>
+        <a href={DISCLAIMER_URL} target="_blank" rel="noreferrer" className="tc-link">Disclaimer</a>
       </nav>
     </main>
   );
