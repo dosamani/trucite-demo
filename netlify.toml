@@ -1,7 +1,8 @@
 [build]
-  command = 'echo "Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --pretty=%cd)" && npm run build'
+  # Show short SHA and branch at the top of each build
+  command = 'echo "Commit: ${COMMIT_REF:0:7} on $BRANCH" && npm run build'
   publish = ".next"
 
 [build.environment]
-  # Fetch entire history so git log and rev-parse always work
-  GIT_CLONE_FLAGS = "--depth=None"
+  # optional, keeps behavior explicit
+  NETLIFY_USE_FULL_GIT_CLONE = "false"
