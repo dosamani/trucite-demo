@@ -1,3 +1,9 @@
+# netlify.toml  (repo root)
 [build]
+  # Show short SHA + branch, then run the build
   command = 'echo "Commit: ${COMMIT_REF:0:7} on $BRANCH" && npm run build'
   publish = ".next"
+
+[build.environment]
+  # Ensure git history is cloned so COMMIT_REF and git log work
+  NETLIFY_USE_FULL_GIT_CLONE = "true"
