@@ -1,9 +1,18 @@
-# netlify.toml  (repo root)
+# netlify.toml — final config
+
 [build]
-  # Show short SHA + branch, then run the build
-  command = 'echo "Commit: ${COMMIT_REF:0:7} on $BRANCH" && npm run build'
+  # Show commit info in the logs, then build
+  command = "echo \"Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --date=iso --pretty=%cd)\" && npm ci && npm run build"
   publish = ".next"
 
 [build.environment]
-  # Ensure git history is cloned so COMMIT_REF and git log work
+  # Ensures Netlify fetches full git history (so git log/sha always work)
   NETLIFY_USE_FULL_GIT_CLONE = "true"
+  GIT_CLONE_FLAGS = "--depth=None"
+  NODE_VERSION = "22.20.0"
+
+# Optional: default redirects for Next.js (avoids 404s for dynamic routes)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
