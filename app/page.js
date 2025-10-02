@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [score, setScore] = useState<number | null>(null);
+  const [score, setScore] = useState(null);        // JS (no <number | null>)
   const [explanation, setExplanation] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -41,7 +41,7 @@ export default function Home() {
         textAlign: "center",
       }}
     >
-      {/* HERO (no extra site nav here — layout already provides it) */}
+      {/* HERO (layout.js already provides the site header; we don't duplicate it here) */}
       <section>
         <img
           src="/logo.jpg"
@@ -76,7 +76,6 @@ export default function Home() {
           cross-platform, real-time engine for evaluating and scoring truth.
         </p>
 
-        {/* Feature badges */}
         <div
           style={{
             display: "flex",
@@ -138,14 +137,12 @@ export default function Home() {
         </button>
       </section>
 
-      {/* ERROR */}
       {error && (
         <p style={{ color: "#ff6b6b", textAlign: "center", marginTop: 12 }}>
           {error}
         </p>
       )}
 
-      {/* RESULT */}
       {score !== null && (
         <section
           style={{
@@ -171,7 +168,6 @@ export default function Home() {
             <span style={{ color: "#00e676" }}>{score}%</span>
           </h2>
 
-          {/* progress bar */}
           <div
             aria-label="Truth score progress"
             style={{
@@ -201,7 +197,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* About section (kept minimal) */}
       <section id="about" style={{ marginTop: 40, textAlign: "center" }}>
         <h3 style={{ color: "#f2c94c", marginBottom: 8 }}>About TruCite</h3>
         <p style={{ color: "#cfcfcf", maxWidth: 800, margin: "0 auto" }}>
@@ -211,7 +206,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Center ONLY this input's placeholder (scoped by class) */}
+      {/* Scope placeholder centering to this input only */}
       <style jsx>{`
         .tc-input::placeholder {
           text-align: center;
@@ -222,6 +217,7 @@ export default function Home() {
     </main>
   );
 }
+
 const badgeStyle = {
   background: "rgba(242, 201, 76, 0.12)",
   border: "1px solid rgba(242, 201, 76, 0.3)",
