@@ -10,19 +10,14 @@ export default function Home() {
   async function handleCheck() {
     setLoading(true);
     try {
-      // Call backend – right now we just hit /api/hello and fake a score
-      const r = await fetch("/api/hello");
-      await r.json(); // we don’t use its payload yet
-      // Fake score (for demo)
-      const fakeScore = Math.floor(Math.random() * 100);
-      setScore(fakeScore);
-      setExplanation(
-        fakeScore > 70
-          ? "This looks likely true."
-          : fakeScore > 40
-          ? "This may be partially true or needs more evidence."
-          : "This looks questionable or false."
-      );
+      const r = await fetch("/api/truth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      const j = await r.json();
+      setScore(j.score);
+      setExplanation(j.explanation);
     } finally {
       setLoading(false);
     }
@@ -92,7 +87,7 @@ export default function Home() {
             borderRadius: "10px",
             border: "1px solid #333",
             fontSize: "16px",
-            textAlign: "center", // centers input and placeholder
+            textAlign: "center",
           }}
         />
         <button
