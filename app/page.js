@@ -222,8 +222,7 @@ export default function Home() {
     </main>
   );
 }
-
-const badgeStyle: React.CSSProperties = {
+const badgeStyle = {
   background: "rgba(242, 201, 76, 0.12)",
   border: "1px solid rgba(242, 201, 76, 0.3)",
   color: "#f2c94c",
