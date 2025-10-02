@@ -1,0 +1,3 @@
+[build]
+  command = "git rev-parse HEAD && npm run build"
+  publish = ".next"
