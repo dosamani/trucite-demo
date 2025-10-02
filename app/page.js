@@ -6,10 +6,10 @@ const FAQ_URL       = "https://docs.google.com/document/d/1WF0NB9fnxhDPEi_arGSp1
 const SUGGEST_URL   = "https://forms.gle/kJz3nVJ3tZqgF5Qm6";
 const CONTACT_EMAIL = "mailto:founder@trucite.ai";
 
-// Placeholder Google Docs for MVP demo
-const TERMS_URL      = "https://docs.google.com/document/d/1abc123DEMOtermsURL/edit";
-const PRIVACY_URL    = "https://docs.google.com/document/d/1abc123DEMOprivacyURL/edit";
-const DISCLAIMER_URL = "https://docs.google.com/document/d/1abc123DEMOdisclaimerURL/edit";
+// ✅ Final Google Docs for Terms / Privacy / Disclaimer
+const TERMS_URL      = "https://docs.google.com/document/d/1IQM-Qe-SARh9zOm6HT7YYhYxfO4Q2GEVDTt9ZavyA5E/edit?usp=drivesdk";
+const PRIVACY_URL    = "https://docs.google.com/document/d/1ZBRksw_MOzfvP4cqxxnQp54cz-aqXF5j-jsur-EdL3E/edit?usp=drivesdk";
+const DISCLAIMER_URL = "https://docs.google.com/document/d/1Byzx9_CRe8QT4_pEA5X-EWoVl2GIjt3dJ2pUunfE_Kc/edit?usp=drivesdk";
 
 const wrap = {
   maxWidth: 980,
