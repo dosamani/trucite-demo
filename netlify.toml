@@ -1,18 +1,10 @@
-# netlify.toml — final config
+# netlify.toml — stable config (no lockfile required)
 
 [build]
-  # Show commit info in the logs, then build
-  command = "echo \"Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --date=iso --pretty=%cd)\" && npm ci && npm run build"
+  # Print commit info then install+build
+  command = "echo \"Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --date=iso --pretty=%cd)\" && npm install --no-audit --no-fund && npm run build"
   publish = ".next"
 
 [build.environment]
-  # Ensures Netlify fetches full git history (so git log/sha always work)
-  NETLIFY_USE_FULL_GIT_CLONE = "true"
-  GIT_CLONE_FLAGS = "--depth=None"
+  NETLIFY_USE_FULL_GIT_CLONE = "true"   # ensures git history so the commit echo always works
   NODE_VERSION = "22.20.0"
-
-# Optional: default redirects for Next.js (avoids 404s for dynamic routes)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
