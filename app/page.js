@@ -3,8 +3,30 @@ import { useState } from "react";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [resp, setResp] = useState(null);
+  const [score, setScore] = useState(null);
+  const [explanation, setExplanation] = useState("");
   const [loading, setLoading] = useState(false);
+
+  async function handleCheck() {
+    setLoading(true);
+    try {
+      // Call backend – right now we just hit /api/hello and fake a score
+      const r = await fetch("/api/hello");
+      await r.json(); // we don’t use its payload yet
+      // Fake score (for demo)
+      const fakeScore = Math.floor(Math.random() * 100);
+      setScore(fakeScore);
+      setExplanation(
+        fakeScore > 70
+          ? "This looks likely true."
+          : fakeScore > 40
+          ? "This may be partially true or needs more evidence."
+          : "This looks questionable or false."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <main
@@ -70,20 +92,11 @@ export default function Home() {
             borderRadius: "10px",
             border: "1px solid #333",
             fontSize: "16px",
-            textAlign: "center", // centers both input and typed text
+            textAlign: "center", // centers input and placeholder
           }}
         />
         <button
-          onClick={async () => {
-            setLoading(true);
-            try {
-              const r = await fetch("/api/hello");
-              const j = await r.json();
-              setResp(j);
-            } finally {
-              setLoading(false);
-            }
-          }}
+          onClick={handleCheck}
           style={{
             padding: "14px 20px",
             borderRadius: "10px",
@@ -112,19 +125,22 @@ export default function Home() {
       </div>
 
       {/* Response Output */}
-      {resp && (
-        <pre
+      {score !== null && (
+        <div
           style={{
-            textAlign: "left",
-            marginTop: "20px",
-            padding: "12px",
+            marginTop: "30px",
+            padding: "16px",
+            borderRadius: "10px",
             background: "#111",
-            borderRadius: "8px",
-            color: "#0f0",
+            display: "inline-block",
+            color: "#fff",
           }}
         >
-          {JSON.stringify(resp, null, 2)}
-        </pre>
+          <h2 style={{ color: "#0f0", marginBottom: "10px" }}>
+            ✅ Truth Score: {score}%
+          </h2>
+          <p>{explanation}</p>
+        </div>
       )}
 
       {/* Center placeholder text */}
