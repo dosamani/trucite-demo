@@ -1,16 +1,19 @@
 "use client";
 import { useState } from "react";
 
-// 🔗 Live links
-const FAQ_URL       = "https://docs.google.com/document/d/1WF0NB9fnxhDPEi_arGSp18Kev9KXdoX-IePIE8KJgCQ/edit";
-const SUGGEST_URL   = "https://forms.gle/kJz3nVJ3tZqgF5Qm6";
+/* ---------- LIVE LINKS ---------- */
+// FAQ (working doc)
+const FAQ_URL = "https://docs.google.com/document/d/1WF0NB9fnxhDPEi_arGSp18Kev9KXdoX-IePIE8KJgCQ/view?usp=sharing";
+// Suggestions (REPLACE with your real Google Form short link if different)
+const SUGGEST_URL = "https://forms.gle/kJz3nVJ3tZqgF5Qm6";
 const CONTACT_EMAIL = "mailto:founder@trucite.ai";
 
-// ✅ Final Google Docs for Terms / Privacy / Disclaimer
-const TERMS_URL      = "https://docs.google.com/document/d/1IQM-Qe-SARh9zOm6HT7YYhYxfO4Q2GEVDTt9ZavyA5E/edit?usp=drivesdk";
-const PRIVACY_URL    = "https://docs.google.com/document/d/1ZBRksw_MOzfvP4cqxxnQp54cz-aqXF5j-jsur-EdL3E/edit?usp=drivesdk";
-const DISCLAIMER_URL = "https://docs.google.com/document/d/1Byzx9_CRe8QT4_pEA5X-EWoVl2GIjt3dJ2pUunfE_Kc/edit?usp=drivesdk";
+// Legal docs you provided (converted to /view)
+const TERMS_URL      = "https://docs.google.com/document/d/1IQM-Qe-SARh9zOm6HT7YYhYxfO4Q2GEVDTt9ZavyA5E/view?usp=sharing";
+const PRIVACY_URL    = "https://docs.google.com/document/d/1ZBRksw_MOzfvP4cqxxnQp54cz-aqXF5j-jsur-EdL3E/view?usp=sharing";
+const DISCLAIMER_URL = "https://docs.google.com/document/d/1Byzx9_CRe8QT4_pEA5X-EWoVl2GIjt3dJ2pUunfE_Kc/view?usp=sharing";
 
+/* ---------- STYLES ---------- */
 const wrap = {
   maxWidth: 980,
   margin: "0 auto",
@@ -53,7 +56,7 @@ export default function Home() {
       const j = await r.json();
       setScore(j.score);
       setExplanation(j.explanation || "");
-    } catch (e) {
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -62,7 +65,7 @@ export default function Home() {
 
   return (
     <main style={wrap}>
-      {/* Logo cleanup */}
+      {/* Hard-fix logo edge; swap to transparent PNG for perfect result */}
       <section style={{ marginTop: 18 }}>
         <img
           src="/logo.jpg"
@@ -139,11 +142,8 @@ export default function Home() {
         </button>
       </div>
 
-      {error && (
-        <p style={{ color: "#ff6b6b", marginTop: 8 }}>{error}</p>
-      )}
+      {error && <p style={{ color: "#ff6b6b", marginTop: 8 }}>{error}</p>}
 
-      {/* Result block */}
       {(score !== null || explanation) && (
         <div
           style={{
@@ -163,9 +163,7 @@ export default function Home() {
             </p>
           )}
           {explanation && (
-            <p style={{ margin: 0, color: "#d9d9d9", whiteSpace: "pre-wrap" }}>
-              {explanation}
-            </p>
+            <p style={{ margin: 0, color: "#d9d9d9", whiteSpace: "pre-wrap" }}>{explanation}</p>
           )}
         </div>
       )}
@@ -181,6 +179,37 @@ export default function Home() {
         <a href={PRIVACY_URL} target="_blank" rel="noreferrer" className="tc-link">Privacy</a>
         <a href={DISCLAIMER_URL} target="_blank" rel="noreferrer" className="tc-link">Disclaimer</a>
       </nav>
+
+      {/* Small global polish without touching globals.css */}
+      <style jsx global>{`
+        .tc-input::placeholder {
+          color: rgba(255,255,255,0.82) !important;
+          text-align: center !important;
+        }
+        .tc-cta {
+          height: 56px;
+          padding: 0 20px;
+          border-radius: 14px;
+          border: 1px solid #7a6425;
+          background: #c5a244;
+          color: #1a1a1a;
+          font-weight: 800;
+        }
+        .tc-cta:disabled { opacity: 0.6; }
+        .tc-link {
+          color: #f2c94c;
+          text-decoration: none;
+          font-weight: 700;
+        }
+        .tc-link:hover { text-decoration: underline; }
+
+        .tc-logo {
+          border: 0 !important;
+          outline: none !important;
+          box-shadow: none !important;
+          -webkit-tap-highlight-color: transparent;
+        }
+      `}</style>
     </main>
   );
 }
