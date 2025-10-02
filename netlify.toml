@@ -1,3 +1,8 @@
 [build]
-  command = 'echo "Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s)" && npm run build'
+  # Print commit hash, message, author, and date before running the Next.js build
+  command = 'echo "Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --pretty=%cd)" && npm run build'
   publish = ".next"
+
+[build.environment]
+  # Ensure Git history is fetched so commit details are available
+  GIT_CLONE_FLAGS = "--depth=50"
