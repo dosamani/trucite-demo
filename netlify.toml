@@ -1,16 +1,13 @@
-# netlify.toml — stable build banner + Next.js publish
 [build]
-# Always print commit + branch first, then build
-command = 'echo "Commit: ${COMMIT_REF:-unknown} on ${BRANCH:-unknown}" && npm install && npm run build'
-publish = ".next"
+  command = "npm run build"
+  publish = ".next"
 
 [build.environment]
-# Make sure a real git clone is available so COMMIT_REF/BRANCH are populated
-NETLIFY_USE_FULL_GIT_CLONE = "true"
-NODE_VERSION = "22"
+  NODE_VERSION = "22.20.0"
+  NEXT_TELEMETRY_DISABLED = "1"
 
-[[redirects]]
-  from = "https://www.trucite.ai/*"
-  to   = "https://trucite.ai/:splat"
-  status = 301
-  force = true
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
