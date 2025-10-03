@@ -23,3 +23,23 @@
 
 /* keep content from sneaking under the fixed header */
 main { padding-top: 16px; }
+
+.commit-badge {
+  margin-left: auto;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 215, 0, 0.12);
+  color: #e8c44e;
+  border: 1px solid rgba(232, 196, 78, 0.35);
+  text-decoration: none;
+  line-height: 1;
+}
+.commit-badge:hover {
+  background: rgba(255, 215, 0, 0.2);
+}
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
