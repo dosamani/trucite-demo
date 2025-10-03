@@ -1,10 +1,16 @@
-# netlify.toml — stable config (no lockfile required)
-
+# netlify.toml — stable build banner + Next.js publish
 [build]
-  # Print commit info then install+build
-  command = "echo \"Commit: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s) by $(git log -1 --pretty=%an) on $(git log -1 --date=iso --pretty=%cd)\" && npm install --no-audit --no-fund && npm run build"
-  publish = ".next"
+# Always print commit + branch first, then build
+command = 'echo "Commit: ${COMMIT_REF:-unknown} on ${BRANCH:-unknown}" && npm install && npm run build'
+publish = ".next"
 
 [build.environment]
-  NETLIFY_USE_FULL_GIT_CLONE = "true"   # ensures git history so the commit echo always works
-  NODE_VERSION = "22.20.0"
+# Make sure a real git clone is available so COMMIT_REF/BRANCH are populated
+NETLIFY_USE_FULL_GIT_CLONE = "true"
+NODE_VERSION = "22"
+
+[[redirects]]
+  from = "https://www.trucite.ai/*"
+  to   = "https://trucite.ai/:splat"
+  status = 301
+  force = true
