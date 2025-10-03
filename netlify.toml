@@ -1,13 +1,11 @@
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "npm run build && npm run test"
+  publish = "out"
 
-[build.environment]
-  NODE_VERSION = "22.20.0"
-  NEXT_TELEMETRY_DISABLED = "1"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[dev]
+  command = "npm run dev"
+  port = 8888
+  publish = "out"
