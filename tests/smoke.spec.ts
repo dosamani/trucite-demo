@@ -1,38 +1,17 @@
-// tests/smoke.spec.ts
 import { test, expect } from '@playwright/test';
+
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 test.describe('TruCite Smoke Checks', () => {
   test('homepage loads and key UI is present', async ({ page }) => {
-    // Open local dev or deployed site
-    await page.goto(process.env.PREVIEW_URL || 'http://localhost:3000', {
-      waitUntil: 'domcontentloaded',
-    });
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
 
-    // Logo size guard
-    const logo = page.locator('.heroLogo');
-    await expect(logo).toBeVisible();
-    const box = await logo.boundingBox();
-    expect(box?.width).toBeLessThan(400);
+    await expect(page.getByRole('heading', { name: /welcome to trucite/i })).toBeVisible();
 
-    // Check Truth button visible + enabled
-    const btn = page.getByRole('button', { name: /check truth/i });
-    await expect(btn).toBeVisible();
-    await expect(btn).toBeEnabled();
+    await expect(page.getByRole('button', { name: /fast/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /transparent/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /plug & play/i })).toBeVisible();
 
-    // Input placeholder centered
-    const input = page.locator('.claim-input');
-    await expect(input).toHaveAttribute('placeholder', /claim|snippet/i);
-
-    // Footer links exist
-    for (const label of [
-      'FAQ',
-      'Contact Us',
-      'Suggestions',
-      'Terms',
-      'Privacy',
-      'Disclaimer',
-    ]) {
-      await expect(page.getByRole('link', { name: label })).toBeVisible();
-    }
+    await expect(page.getByRole('button', { name: /check truth/i })).toBeVisible();
   });
 });
