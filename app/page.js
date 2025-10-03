@@ -43,67 +43,29 @@ export default function Home() {
   };
 
   return (
-    <>
-      <section className="hero">
-        <img src="/logo.jpg" alt="" className="hero-logo" />
-        <h1 className="hero-title">
-          Welcome to <span className="accent">TruCite</span>
-        </h1>
-        <p className="hero-sub">
-          The world’s first <strong>Truth OS</strong> — a cross-platform,
-          real-time engine for evaluating and scoring truth.
-        </p>
+    
+    <section className="hero">
+  <div className="heroCard">
+    {/* Prefer /logo.png with transparent background */}
+    <img src="/logo.png" alt="TruCite" className="heroLogo" />
+  </div>
 
-        <div className="badge-row" role="list">
-          <div className="badge" role="listitem">
-            <span className="badge-emoji">⚡</span> Fast
-          </div>
+  <h1>Welcome to <span style={{color:'var(--brand)'}}>TruCite</span></h1>
+  <p className="tagline">
+    The world’s first <strong>Truth OS</strong> — a cross-platform, real-time engine for evaluating and scoring truth.
+  </p>
 
-          {/* gold chain icon (SVG so it stays gold on all devices) */}
-          <div className="badge" role="listitem">
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              className="icon"
-            >
-              <path
-                fill="#f5c84b"
-                d="M10.59 13.41a1.998 1.998 0 0 0 2.83 0l3.88-3.88a2 2 0 1 0-2.83-2.83l-1.42 1.42l-1.41 1.41l-1.42 1.42a2 2 0 0 0 0 2.83m2.82-2.82l1.42-1.42m-8.41 8.41l3.88-3.88a2 2 0 1 0-2.83-2.83L6.65 13.7a2 2 0 1 0 2.83 2.83z"
-              />
-            </svg>
-            Transparent
-          </div>
+  <div className="badges">
+    <div className="badge"><span className="icon">⚡</span> Fast</div>
+    <div className="badge"><span className="icon">🔗</span> Transparent</div>
+    <div className="badge"><span className="icon">✨</span> Plug &amp; Play</div>
+  </div>
 
-          <div className="badge" role="listitem">
-            <span className="badge-emoji">✨</span> Plug &amp; Play
-          </div>
-        </div>
-
-        <form className="cta-row" onSubmit={handleCheck}>
-          <input
-            className="claim-input"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Paste a claim, answer, or snippet"
-            aria-label="Paste a claim, answer, or snippet"
-          />
-          <button className="cta" type="submit" disabled={loading}>
-            {loading ? "Checking..." : "Check Truth"}
-          </button>
-        </form>
-
-        {error && <p className="error">{error}</p>}
-        {score !== null && (
-          <div className="result">
-            <div className="score">Truth Score: {score}</div>
-            {explanation ? (
-              <p className="explanation">{explanation}</p>
-            ) : null}
-          </div>
-        )}
-      </section>
+  <div className="inputRow">
+    <input type="text" placeholder="Paste a claim, answer, or snippet" />
+    <button className="cta">Check Truth</button>
+  </div>
+</section>
 
       <hr className="divider" />
       <nav className="footer-links">
