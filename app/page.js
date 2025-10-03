@@ -3,17 +3,17 @@ import { useState } from "react";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [score, setScore] = useState(null);
+  const [score, setScore] = useState(null); // number | null
   const [explanation, setExplanation] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleCheck(e) {
-    e.preventDefault();
+  async function handleCheck() {
     setError("");
     setScore(null);
     setExplanation("");
     if (!text.trim()) return;
+
     setLoading(true);
     try {
       const r = await fetch("/api/truth", {
@@ -23,69 +23,231 @@ export default function Home() {
       });
       if (!r.ok) throw new Error("Request failed");
       const data = await r.json();
-      setScore(data?.score ?? null);
-      setExplanation(data?.explanation ?? "");
-    } catch {
+      setScore(data.score);
+      setExplanation(data.explanation || "");
+    } catch (e) {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
-  const LINKS = {
-    faq: "https://docs.google.com/document/d/1IQM-Qe-SARh9zOm6HT7YYhYxfO4Q2GEVDTt9ZavyA5E/edit?usp=drivesdk",
-    terms: "https://docs.google.com/document/d/1ZBRksw_MOzfvP4cqxxnQp54cz-aqXF5j-jsur-EdL3E/edit?usp=drivesdk",
-    privacy: "https://docs.google.com/document/d/1Byzx9_CRe8QT4_pEA5X-EWoVl2GIjt3dJ2pUunfE_Kc/edit?usp=drivesdk",
-    disclaimer:
-      "https://docs.google.com/document/d/1ZBRksw_MOzfvP4cqxxnQp54cz-aqXF5j-jsur-EdL3E/edit?usp=drivesdk",
-    suggestions: "https://forms.gle/REPLACE_WITH_REAL_FORM_ID",
-    contact: "mailto:founder@trucite.ai",
-  };
-
   return (
-    
-    <section className="hero">
-  <div className="heroCard">
-    {/* Prefer /logo.png with transparent background */}
-    <img src="/logo.png" alt="TruCite" className="heroLogo" />
-  </div>
+    <main
+      style={{
+        maxWidth: 980,
+        margin: "0 auto",
+        padding: "28px 16px 80px",
+        color: "#eaeaea",
+        textAlign: "center",
+      }}
+    >
+      {/* HERO */}
+      <section>
+        <img
+          src="/logo.jpg"
+          alt="TruCite Logo"
+          style={{
+            width: "100%",
+            maxWidth: 540,
+            height: "auto",
+            margin: "18px auto 10px",
+            borderRadius: 24,
+            display: "block",
+            border: "none",
+            outline: "none",
+            boxShadow: "none",
+          }}
+          draggable="false"
+        />
+      </section>
 
-  <h1>Welcome to <span style={{color:'var(--brand)'}}>TruCite</span></h1>
-  <p className="tagline">
-    The world’s first <strong>Truth OS</strong> — a cross-platform, real-time engine for evaluating and scoring truth.
-  </p>
+      <h1
+        style={{
+          fontSize: "clamp(28px, 5.8vw, 56px)",
+          fontWeight: 800,
+          color: "#f2c94c",
+          margin: "10px 0 8px",
+        }}
+      >
+        Welcome to <span style={{ color: "#f2c94c" }}>TruCite</span>
+      </h1>
 
-  <div className="badges">
-    <div className="badge"><span className="icon">⚡</span> Fast</div>
-    <div className="badge"><span className="icon">🔗</span> Transparent</div>
-    <div className="badge"><span className="icon">✨</span> Plug &amp; Play</div>
-  </div>
+      <p
+        style={{
+          fontSize: "clamp(16px, 3.6vw, 22px)",
+          lineHeight: 1.5,
+          margin: "0 auto 18px",
+          maxWidth: 820,
+          color: "#cfcccf",
+        }}
+      >
+        The world’s first <strong style={{ color: "#fff" }}>Truth OS</strong> — a
+        cross-platform, real-time engine for evaluating and scoring truth.
+      </p>
 
-  <div className="inputRow">
-    <input type="text" placeholder="Paste a claim, answer, or snippet" />
-    <button className="cta">Check Truth</button>
-  </div>
-</section>
+      {/* BADGE ROW */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 16,
+          flexWrap: "wrap",
+          marginBottom: 18,
+        }}
+      >
+        <Badge icon="⚡" label="Fast" />
+        <Badge icon="🔗" label="Transparent" />
+        <Badge icon="✨" label="Plug & Play" />
+      </div>
 
-      <hr className="divider" />
-      <nav className="footer-links">
-        <a href={LINKS.faq} target="_blank" rel="noreferrer">
+      {/* INPUT + BUTTON */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: 14,
+          maxWidth: 920,
+          margin: "0 auto 10px",
+        }}
+      >
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Paste a claim, answer, or snippet"
+          style={{
+            width: "100%",
+            height: 54,
+            borderRadius: 14,
+            border: "1px solid #3a3a3a",
+            background: "#131313",
+            color: "#e9e9e9",
+            padding: "0 18px",
+            textAlign: "center",
+            outline: "none",
+          }}
+        />
+
+        <button
+          onClick={handleCheck}
+          disabled={loading || !text.trim()}
+          style={{
+            height: 54,
+            borderRadius: 14,
+            border: "none",
+            cursor: loading || !text.trim() ? "not-allowed" : "pointer",
+            fontWeight: 700,
+            fontSize: 18,
+            color: "#1a1a1a",
+            background:
+              "linear-gradient(180deg, #f6d365 0%, #f2c94c 55%, #d9a21f 100%)",
+            boxShadow:
+              "0 6px 18px rgba(242, 201, 76, 0.25), inset 0 1px 0 rgba(255,255,255,0.35)",
+            transition: "transform 120ms ease",
+            opacity: loading || !text.trim() ? 0.6 : 1,
+          }}
+          onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.98)")}
+          onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        >
+          {loading ? "Checking…" : "Check Truth"}
+        </button>
+      </div>
+
+      {/* RESULT */}
+      {error ? (
+        <p style={{ color: "#ff7676", marginTop: 8 }}>{error}</p>
+      ) : null}
+
+      {score !== null && (
+        <div
+          style={{
+            maxWidth: 920,
+            margin: "16px auto 0",
+            textAlign: "left",
+            background: "#101010",
+            border: "1px solid #2a2a2a",
+            borderRadius: 14,
+            padding: 16,
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            <strong>Truth Score:</strong>{" "}
+            <span style={{ color: "#f2c94c" }}>{score}</span>
+          </p>
+          {explanation && (
+            <p style={{ margin: "8px 0 0", whiteSpace: "pre-wrap" }}>
+              {explanation}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* FOOTER LINKS — keep your existing targets */}
+      <hr
+        style={{
+          margin: "26px auto 14px",
+          maxWidth: 920,
+          border: "none",
+          borderTop: "1px solid #2a2a2a",
+        }}
+      />
+      <nav
+        aria-label="Footer"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 24,
+          flexWrap: "wrap",
+          fontWeight: 600,
+        }}
+      >
+        <a href="/faq" style={footerLinkStyle}>
           FAQ
         </a>
-        <a href={LINKS.contact}>Contact Us</a>
-        <a href={LINKS.suggestions} target="_blank" rel="noreferrer">
+        <a href="mailto:founder@trucite.ai" style={footerLinkStyle}>
+          Contact Us
+        </a>
+        <a href="/suggestions" style={footerLinkStyle}>
           Suggestions
         </a>
-        <a href={LINKS.terms} target="_blank" rel="noreferrer">
+        <a href="/terms" style={footerLinkStyle}>
           Terms
         </a>
-        <a href={LINKS.privacy} target="_blank" rel="noreferrer">
+        <a href="/privacy" style={footerLinkStyle}>
           Privacy
         </a>
-        <a href={LINKS.disclaimer} target="_blank" rel="noreferrer">
+        <a href="/disclaimer" style={footerLinkStyle}>
           Disclaimer
         </a>
       </nav>
-    </>
+    </main>
+  );
+}
+
+const footerLinkStyle = {
+  color: "#f2c94c",
+  textDecoration: "none",
+};
+ 
+function Badge({ icon, label }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "10px 16px",
+        borderRadius: 14,
+        background: "rgba(255, 215, 96, 0.08)",
+        border: "1px solid rgba(255, 215, 96, 0.22)",
+        color: "#f2c94c",
+        fontWeight: 700,
+        whiteSpace: "nowrap",
+      }}
+    >
+      <span aria-hidden="true">{icon}</span>
+      {label}
+    </span>
   );
 }
