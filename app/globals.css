@@ -85,7 +85,7 @@ main {
 
 /* ---------- Hero ---------- */
 .heroLogo {
-  width: min(92vw, 520px);
+  width: min(92vw, 420px);
   height: auto;
   display: block;
   margin: 0 auto 12px;
@@ -95,7 +95,7 @@ main {
   box-shadow: 0 0 0 transparent; /* ensure no CSS outline is present */
 }
 
-@media (max-width: 420px) {
+@media (max-width: 320px) {
   .heroLogo {
     width: min(90vw, 380px);
     border-radius: 20px;
