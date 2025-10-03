@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [score, setScore] = useState(null); // number | null
+  const [score, setScore] = useState(null);
   const [explanation, setExplanation] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,7 +25,7 @@ export default function Home() {
       const data = await r.json();
       setScore(data.score);
       setExplanation(data.explanation || "");
-    } catch (e) {
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -82,8 +82,8 @@ export default function Home() {
           color: "#cfcccf",
         }}
       >
-        The world’s first <strong style={{ color: "#fff" }}>Truth OS</strong> — a
-        cross-platform, real-time engine for evaluating and scoring truth.
+        The world’s first <strong style={{ color: "#fff" }}>Truth OS</strong> —
+        a cross-platform, real-time engine for evaluating and scoring truth.
       </p>
 
       {/* BADGE ROW */}
@@ -154,10 +154,7 @@ export default function Home() {
         </button>
       </div>
 
-      {/* RESULT */}
-      {error ? (
-        <p style={{ color: "#ff7676", marginTop: 8 }}>{error}</p>
-      ) : null}
+      {error && <p style={{ color: "#ff7676", marginTop: 8 }}>{error}</p>}
 
       {score !== null && (
         <div
@@ -183,15 +180,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* FOOTER LINKS — keep your existing targets */}
-      <hr
-        style={{
-          margin: "26px auto 14px",
-          maxWidth: 920,
-          border: "none",
-          borderTop: "1px solid #2a2a2a",
-        }}
-      />
+      <hr style={{ margin: "26px auto 14px", maxWidth: 920 }} />
+
       <nav
         aria-label="Footer"
         style={{
@@ -202,34 +192,19 @@ export default function Home() {
           fontWeight: 600,
         }}
       >
-        <a href="/faq" style={footerLinkStyle}>
-          FAQ
-        </a>
-        <a href="mailto:founder@trucite.ai" style={footerLinkStyle}>
-          Contact Us
-        </a>
-        <a href="/suggestions" style={footerLinkStyle}>
-          Suggestions
-        </a>
-        <a href="/terms" style={footerLinkStyle}>
-          Terms
-        </a>
-        <a href="/privacy" style={footerLinkStyle}>
-          Privacy
-        </a>
-        <a href="/disclaimer" style={footerLinkStyle}>
-          Disclaimer
-        </a>
+        <a href="/faq" style={footerLinkStyle}>FAQ</a>
+        <a href="mailto:founder@trucite.ai" style={footerLinkStyle}>Contact Us</a>
+        <a href="/suggestions" style={footerLinkStyle}>Suggestions</a>
+        <a href="/terms" style={footerLinkStyle}>Terms</a>
+        <a href="/privacy" style={footerLinkStyle}>Privacy</a>
+        <a href="/disclaimer" style={footerLinkStyle}>Disclaimer</a>
       </nav>
     </main>
   );
 }
 
-const footerLinkStyle = {
-  color: "#f2c94c",
-  textDecoration: "none",
-};
- 
+const footerLinkStyle = { color: "#f2c94c", textDecoration: "none" };
+
 function Badge({ icon, label }) {
   return (
     <span
