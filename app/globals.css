@@ -1,17 +1,23 @@
-/* -------- Hero logo (stable + smaller) -------- */
+
+/* ---------- Hero ---------- */
 .heroLogo {
-  width: min(88vw, 360px);     /* ↓ from 520 → 360 so it can't dominate */
-  max-height: 48vh;            /* never taller than half the screen */
+  width: min(82vw, 420px);
   height: auto;
   display: block;
   margin: 0 auto 12px;
-  border-radius: 20px;
+  border-radius: 24px;         /* soft corners to kill any boxy edge */
   overflow: hidden;
-  clip-path: inset(0 round 20px);
-  box-shadow: none;            /* no halo/outline */
-  object-fit: contain;
+  clip-path: inset(0 round 24px);
+  box-shadow: 0 0 0 transparent; /* ensure no CSS outline is present */
 }
 
+@media (max-width: 420px) {
+  .heroLogo {
+    width: min(78vw, 340px);
+    border-radius: 20px;
+    clip-path: inset(0 round 20px);
+  }
+}
 @media (max-width: 420px) {
   .heroLogo {
     width: min(86vw, 280px);   /* phones: tighter cap */
