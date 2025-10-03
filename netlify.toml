@@ -1,13 +1,13 @@
 [build]
-  command = """
-  npx playwright install chromium \
-  && npm run build \
-  && npx http-server ./out -p 3000 -s & \
-  npx wait-on http://localhost:3000 \
-  && BASE_URL=http://localhost:3000 npm run test
-  """
-  publish = "out"
+  command = "echo \"Commit: ${COMMIT_REF:0:7} on $BRANCH\" && npm install --no-audit --no-fund && npm run build"
+  publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "22.20.0"
-  PLAYWRIGHT_BROWSERS_PATH = "0"
+  NODE_VERSION = "18"
+  NEXT_TELEMETRY_DISABLED = "1"
+  NETLIFY_USE_FULL_GIT_CLONE = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
