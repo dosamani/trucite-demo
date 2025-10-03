@@ -1,5 +1,4 @@
 // app/layout.js
-
 export const metadata = {
   title: "TruCite",
   description:
@@ -8,44 +7,11 @@ export const metadata = {
 
 import "./globals.css";
 
-/**
- * Small server component that shows the current short commit hash,
- * linking to the commit on GitHub. It reads build envs that Netlify
- * injects (COMMIT_REF, BRANCH). If none exist (e.g., local dev),
- * it renders nothing.
- */
-function CommitBadge() {
-  // Netlify injects COMMIT_REF and BRANCH on builds
-  const fullSha =
-    process.env.COMMIT_REF ||
-    process.env.NEXT_PUBLIC_COMMIT ||
-    "";
-  const shortSha = fullSha ? fullSha.slice(0, 7) : "";
-  const branch =
-    process.env.BRANCH ||
-    process.env.NEXT_PUBLIC_BRANCH ||
-    "main";
-
-  if (!shortSha) return null;
-
-  // If you ever change the repo, update this base URL:
-  const repoBase =
-    process.env.NEXT_PUBLIC_REPO_URL ||
-    "https://github.com/dosamani/trucite-demo";
-  const href = `${repoBase}/commit/${fullSha}`;
-
-  return (
-    <a
-      href={href}
-      className="commit-badge"
-      target="_blank"
-      rel="noopener noreferrer"
-      title={`Commit ${shortSha} on ${branch}`}
-    >
-      {branch}@{shortSha}
-    </a>
-  );
-}
+const COMMIT_REF = process.env.COMMIT_REF || "";
+const BRANCH = process.env.BRANCH || "";
+const REPO_URL =
+  process.env.NEXT_PUBLIC_REPO_URL ||
+  "https://github.com/dosamani/trucite-demo";
 
 export default function RootLayout({ children }) {
   return (
@@ -60,17 +26,27 @@ export default function RootLayout({ children }) {
                 className="brand_logo"
                 draggable="false"
               />
+              <span className="brand_name">TruCite</span>
             </a>
-            <span className="brand_name">TruCite</span>
 
-            {/* Commit hash (right side of header) */}
-            <CommitBadge />
+            <nav className="nav">
+              <a href="/">Home</a>
+              <a href="/about">About</a>
+            </nav>
+
+            {/* Commit badge, always shows on Netlify builds */}
+            {COMMIT_REF && (
+              <a
+                className="commit-badge"
+                href={`${REPO_URL}/commit/${COMMIT_REF}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Commit ${COMMIT_REF.slice(0, 7)} on ${BRANCH || "main"}`}
+              >
+                {BRANCH || "main"}@{COMMIT_REF.slice(0, 7)}
+              </a>
+            )}
           </div>
-
-          <nav className="nav nav-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-          </nav>
 
           <div className="site-header__rule" />
         </header>
