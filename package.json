@@ -15,5 +15,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0"
+  },
+  "engines": {
+    "node": "22.20.0",
+    "npm": "10.x"
   }
 }
