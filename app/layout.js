@@ -1,7 +1,6 @@
 export const metadata = {
   title: "TruCite",
-  description:
-    "The world’s first Truth OS — a cross-platform, real-time engine for evaluating and scoring truth.",
+  description: "Truth OS — real-time engine for evaluating and scoring truth.",
 };
 
 import "./globals.css";
@@ -11,18 +10,25 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <header className="site-header">
-          <div className="header-inner">
-            <div className="brand">
-              <img src="/logo.jpg" alt="" className="brand-mark" />
-              <span className="brand-name">TruCite</span>
-            </div>
+          <div className="site-header__inner">
+            <a className="brand" href="/">
+              <img
+                src="/logo.jpg"
+                alt="TruCite"
+                className="brand__logo"
+                draggable="false"
+              />
+              <span className="brand__name">TruCite</span>
+            </a>
             <nav className="nav">
-              <a href="/" className="nav-link">Home</a>
-              <a href="/about" className="nav-link">About</a>
+              <a href="/">Home</a>
+              <a href="/about">About</a>
             </nav>
           </div>
+          <div className="site-header__rule" />
         </header>
-        <main className="container">{children}</main>
+
+        {children}
       </body>
     </html>
   );
