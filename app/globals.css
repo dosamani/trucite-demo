@@ -143,3 +143,24 @@ h1{
 .inputRow button:hover{
   background: var(--accent-2);
 }
+
+/* === Quick Fix Overrides (safe to add at bottom) === */
+
+/* 1. Headline: force "Welcome to TruCite" to be pure white */
+h1 {
+  color: #ffffff !important;
+}
+
+/* 2. Logo: shrink + kill outline */
+.heroLogo {
+  width: min(60vw, 180px) !important;   /* smaller than current */
+  height: auto !important;
+  border-radius: 0 !important;          /* remove rounded edges */
+  box-shadow: none !important;          /* no glow/outline */
+}
+
+/* 3. Navbar links (Home, About): gold/yellow */
+.nav a {
+  color: #f5d061 !important;
+  font-weight: 600;
+}
