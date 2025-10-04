@@ -3,9 +3,9 @@
   --panel: #171717;
   --text: #f5f5f5;
   --muted: #cfcfcf;
-  --accent: #f5d061;     /* gold for button + highlights */
+  --accent: #f5d061;       /* gold for button + highlights */
   --accent-2: #caa43d;
-  --chipText: #111;      /* dark text on white chips */
+  --chipText: #111;        /* dark text on white chips */
 }
 
 /* Reset & base */
@@ -20,6 +20,7 @@ html,body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 a{ color: var(--accent); text-decoration: none; }
 a:hover{ text-decoration: underline; }
 
@@ -47,7 +48,10 @@ a:hover{ text-decoration: underline; }
   letter-spacing: .2px;
 }
 .nav{ display:flex; gap:24px; }
-.nav a{ color: var(--text); font-weight:600; }
+.nav a{ 
+  color: #f5d061 !important;   /* gold nav links */
+  font-weight:600; 
+}
 
 /* Hero */
 .hero{
@@ -56,41 +60,44 @@ a:hover{ text-decoration: underline; }
   padding: 0 16px 24px;
 }
 
-/* “No outline” card holding the logo (rounded + hidden overflow) */
+/* “No outline” card holding the logo */
 .heroLogoWrap{
   background: var(--panel);
   border-radius: 22px;
   padding: 10px;
-  overflow: hidden;              /* kills any image edge/outline */
-  box-shadow: 0 0 0 transparent; /* ensure there’s no CSS outline */
+  overflow: hidden; 
+  box-shadow: 0 0 transparent; /* kills any image edge/outline */
 }
-/* The image itself */
+
+/* The logo image */
 .heroLogo{
-  width: min(75vw, 280px);       /* smaller cap than before */
+  width: min(60vw, 180px);   /* smaller than before */
   height: auto;
   display:block;
   margin: 0 auto;
-  border-radius: 18px;           /* soft corners so any residual img edge blends */
+  border-radius: 12px;       /* softer corners */
+  box-shadow: none !important;
 }
 
 /* Headline + subhead */
 h1{
+  max-width: 820px;
   margin: 22px auto 10px;
   font-weight: 800;
   text-align:center;
-  font-size: clamp(28px, 6vw, 48px);
-  color: #fff !important;        /* force pure white as requested */
+  font-size: clamp(22px, 6vw, 48px);
+  color: #ffffff !important;   /* force pure white */
 }
 .lead{
   max-width: 820px;
   margin: 0 auto 18px;
   color: var(--muted);
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.5;
   font-size: clamp(15px, 3.4vw, 18px);
 }
 
-/* Feature chips — white buttons with dark text */
+/* Feature chips */
 .chips{
   display:flex; flex-wrap:wrap;
   align-items:center; justify-content:center;
@@ -101,64 +108,38 @@ h1{
   display:inline-flex; align-items:center; gap:10px;
   padding: 12px 18px;
   border-radius: 16px;
-  background: #fff;
-  color: var(--chipText);
+  background: #fff; 
+  color: var(--chipText);      /* dark text */
   border: 1px solid #fff;
   font-weight: 700;
   box-shadow: 0 6px 16px rgba(255,255,255,0.05);
 }
-.chip .icon{ font-size: 18px; }
+.chip_icon{ font-size: 18px; }
 
-/* Claim input + button */
+/* Input + button */
 .inputRow{
   max-width: 980px;
   margin: 0 auto;
   display:grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto;
   gap: 12px;
 }
-.claim-input{
-  width:100%;
-  padding: 16px 18px;
-  border-radius: 14px;
-  background: #141414;
+.inputRow input{
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 2px solid #fff;    /* brighter border */
+  background: transparent;
   color: var(--text);
-  border: 1.5px solid rgba(255,255,255,0.9); /* whiter outline */
-  outline: none;
 }
-.claim-input::placeholder{ color:#bdbdbd; }
-
-.cta{
-  width:100%;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  font-size: 18px;
-  font-weight: 800;
+.inputRow button{
+  background: var(--accent);
   color: #111;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-  box-shadow: 0 8px 24px rgba(245,208,97,0.25);
-}
-.cta:active{ transform: translateY(1px); }
-
-/* Footer links */
-.footer{
-  max-width: 1080px;
-  margin: 28px auto 40px;
-  padding: 0 16px;
-}
-.footer-links{
-  display:flex; flex-wrap:wrap;
-  justify-content:center; gap: 18px;
-}
-.footer-links a{
-  color: var(--accent);
   font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border:none;
+  cursor:pointer;
 }
-
-/* Small screens */
-@media (max-width: 420px){
-  .brand_name{ font-size: 20px; }
-  .heroLogo{ width: min(86vw, 260px); }
-  .chip{ padding: 10px 16px; }
-} 
+.inputRow button:hover{
+  background: var(--accent-2);
+}
