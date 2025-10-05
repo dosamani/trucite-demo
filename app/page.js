@@ -1,99 +1,71 @@
-export const metadata = {
-  title: "TruCite",
-  description:
-    "Truth OS — real-time engine for evaluating and scoring truth.",
-};
+import Image from "next/image";
 
-import "./globals.css";
-
-/**
- * 🔗 Update these with your real destinations.
- * You said you’ll provide the doc/form links; drop them here once you have them.
- */
-const LINKS = {
-  faq:        "https://<PUT-URL-HERE>",
-  contact:    "https://<PUT-URL-HERE>",
-  suggestions:"https://<PUT-URL-HERE>",
-  terms:      "https://<PUT-URL-HERE>",
-  privacy:    "https://<PUT-URL-HERE>",
-  disclaimer: "https://<PUT-URL-HERE>",
-};
-
-export default function Page() {
+export default function Home() {
   return (
     <main>
-      {/* Header */}
-      <header className="site-header">
-        <div className="site-header__inner">
-          <a className="brand" href="/">
-            <img
-              src="/logo.png"
-              alt="TruCite"
-              className="brand_logo"
-              draggable="false"
-            />
-            <span className="brand_name">TruCite</span>
+      {/* NAV */}
+      <nav className="nav flex justify-between items-center px-6 py-4">
+        <h2 className="text-xl font-bold text-yellow-500">TruCite</h2>
+        <div className="space-x-6">
+          <a href="/" className="hover:underline">
+            Home
           </a>
-
-          <nav className="nav">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-          </nav>
+          <a href="/about" className="hover:underline">
+            About
+          </a>
         </div>
-      </header>
+      </nav>
 
-      {/* Hero */}
-      <section className="hero">
+      {/* HERO */}
+      <section className="hero text-center py-10">
         <div className="heroLogoWrap">
-          {/* 👉 If you upload a transparent PNG/SVG to /public/logo.png,
-              this will render with no visible outline. */}
-          <img
-            src="/logo.png"
+          <Image
+            src="/trucite.png"   // make sure your logo is inside /public
             alt="TruCite logo"
+            width={260}
+            height={260}
+            priority
             className="heroLogo"
-            draggable="false"
           />
         </div>
 
-        <h1>Welcome to TruCite</h1>
-        <p className="lead">
+        <h1 className="text-4xl font-bold mt-6">Welcome to TruCite</h1>
+        <p className="mt-4 text-gray-300 max-w-xl mx-auto">
           The world’s first <strong>Truth OS</strong> — a cross-platform,
           real-time engine for evaluating and scoring truth.
         </p>
 
-        <div className="chips">
-          <div className="chip">
-            <span className="icon">⚡</span> Fast
-          </div>
-          <div className="chip">
-            <span className="icon">🔗</span> Transparent
-          </div>
-          <div className="chip">
-            <span className="icon">✨</span> Plug &amp; Play
-          </div>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <span className="px-3 py-1 rounded-full bg-gray-800 text-white text-sm">
+            ⚡ Fast
+          </span>
+          <span className="px-3 py-1 rounded-full bg-gray-800 text-white text-sm">
+            🔗 Transparent
+          </span>
+          <span className="px-3 py-1 rounded-full bg-gray-800 text-white text-sm">
+            ✨ Plug & Play
+          </span>
         </div>
 
-        {/* Input + CTA */}
-        <div className="inputRow">
+        <div className="mt-8 flex flex-col items-center">
           <input
-            className="claim-input"
             type="text"
             placeholder="Paste a claim, answer, or snippet"
-            aria-label="Claim input"
+            className="px-4 py-2 w-80 rounded border border-gray-600 bg-black text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
           />
-          <button className="cta">Check Truth</button>
+          <button className="mt-4 px-6 py-2 rounded bg-yellow-500 text-black font-semibold hover:bg-yellow-400">
+            Check Truth
+          </button>
         </div>
 
-        {/* Footer links */}
-        <footer className="footer">
-          <nav className="footer-links">
-            <a href={LINKS.faq} target="_blank" rel="noreferrer">FAQ</a>
-            <a href={LINKS.contact} target="_blank" rel="noreferrer">Contact Us</a>
-            <a href={LINKS.suggestions} target="_blank" rel="noreferrer">Suggestions</a>
-            <a href={LINKS.terms} target="_blank" rel="noreferrer">Terms</a>
-            <a href={LINKS.privacy} target="_blank" rel="noreferrer">Privacy</a>
-            <a href={LINKS.disclaimer} target="_blank" rel="noreferrer">Disclaimer</a>
-          </nav>
+        {/* FOOTER */}
+        <footer className="mt-12 text-sm text-yellow-500 space-x-4">
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Contact Us</a>
+          <a href="/suggestions">Suggestions</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/disclaimer">Disclaimer</a>
         </footer>
       </section>
     </main>
