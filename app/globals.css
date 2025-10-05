@@ -162,3 +162,44 @@ h1{
   .heroLogo{ width: min(86vw, 260px); }
   .chip{ padding: 10px 16px; }
 }
+/* Header nav links — gold */
+.nav a { 
+  color: var(--accent) !important; /* gold */
+  font-weight: 600;
+}
+
+/* Hero container */
+.hero {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+}
+
+/* Centered wrapper around the logo — removes any “card” outline */
+.heroLogoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+
+/* The logo itself: cap size, no outline */
+.heroLogo {
+  width: min(75vw, 260px);
+  height: auto;
+  display: block;
+  border: 0;
+  outline: none;
+  border-radius: 10px; /* soft corners if the image has hard edges */
+  box-shadow: none;
+}
+
+/* Headline — hard-force white */
+h1 {
+  color: #fff !important;
+}
+
