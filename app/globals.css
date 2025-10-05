@@ -1,205 +1,65 @@
 :root{
-  --bg: #0f0f0f;
-  --panel: #171717;
-  --text: #f5f5f5;
-  --muted: #cfcfcf;
-  --accent: #f5d061;     /* gold for button + highlights */
-  --accent-2: #caa43d;
-  --chipText: #111;      /* dark text on white chips */
+  --bg:#0f0f0f; --panel:#171717; --text:#f5f5f5; --muted:#cfcfcf;
+  --accent:#f5d061; --chipText:#111;
 }
 
-/* Reset & base */
-*{ box-sizing: border-box; }
-html,body{ height:100%; }
-html,body{
-  margin:0;
-  padding:0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-a{ color: var(--accent); text-decoration: none; }
+/* Base */
+html,body{height:100%;}
+html,body{margin:0; padding:0; background:var(--bg); color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+a{ color:var(--accent); text-decoration: none;}
 a:hover{ text-decoration: underline; }
 
-/* Header */
+/* Header (single source of truth) */
 .site-header{
-  position: sticky; top:0; z-index:10;
-  background: rgba(10,10,10,0.92);
-  backdrop-filter: blur(6px);
-  border-bottom: 2px solid #2a2a2a;
+  position: sticky; top:0; z-index:20;
+  background: rgba(16,16,16,.85); backdrop-filter: blur(6px);
+  border-bottom: 1px solid #222;
 }
-.site-header__inner{
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 14px 16px;
+.header__inner{
+  max-width: 1100px; margin: 0 auto; padding: 12px 16px;
   display:flex; align-items:center; justify-content:space-between;
 }
-.brand{ display:flex; align-items:center; gap:12px; }
-.brand_logo{
-  width: 28px; height: 28px; border-radius: 8px; display:block;
-}
-.brand_name{
-  color: var(--accent);
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: .2px;
-}
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+.brand__logo{ width:26px; height:26px; border-radius:6px; display:block; }
+.brand__name{ color:var(--accent); font-weight:800; letter-spacing:.02em; }
 .nav{ display:flex; gap:24px; }
-.nav a{ color: var(--text); font-weight:600; }
+.nav a{ color:var(--accent); font-weight:600; }
 
-/* Hero */
-.hero{
-  max-width: 1080px;
-  margin: 22px auto 0;
-  padding: 0 16px 24px;
-}
-
-/* “No outline” card holding the logo (rounded + hidden overflow) */
+/* Hero + logo sizing */
+.hero{ max-width: 960px; margin: 0 auto; padding: 24px 16px; }
 .heroLogoWrap{
-  background: var(--panel);
-  border-radius: 22px;
-  padding: 10px;
-  overflow: hidden;              /* kills any image edge/outline */
-  box-shadow: 0 0 0 transparent; /* ensure there’s no CSS outline */
+  background: var(--panel); border-radius: 18px; padding: 10px;
+  overflow:hidden; display:inline-block;
 }
-/* The image itself */
 .heroLogo{
-  width: min(75vw, 280px);       /* smaller cap than before */
-  height: auto;
-  display:block;
-  margin: 0 auto;
-  border-radius: 18px;           /* soft corners so any residual img edge blends */
+  width: min(75vw, 280px); height:auto; display:block; border-radius:10px;
 }
 
-/* Headline + subhead */
-h1{
-  margin: 22px auto 10px;
-  font-weight: 800;
-  text-align:center;
-  font-size: clamp(28px, 6vw, 48px);
-  color: #fff !important;        /* force pure white as requested */
-}
-.lead{
-  max-width: 820px;
-  margin: 0 auto 18px;
-  color: var(--muted);
-  text-align: center;
-  line-height: 1.55;
-  font-size: clamp(15px, 3.4vw, 18px);
-}
+/* Headline & text */
+.h1{ font-size: clamp(28px, 4vw, 48px); margin: 18px 0 6px; color:#fff !important; }
+.lead{ max-width: 660px; color: var(--muted); line-height: 1.55; }
 
-/* Feature chips — white buttons with dark text */
-.chips{
-  display:flex; flex-wrap:wrap;
-  align-items:center; justify-content:center;
-  gap: 14px;
-  margin: 12px auto 20px;
-}
+/* Chips */
+.chips{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin: 12px 0 18px; }
 .chip{
-  display:inline-flex; align-items:center; gap:10px;
-  padding: 12px 18px;
-  border-radius: 16px;
-  background: #fff;
-  color: var(--chipText);
-  border: 1px solid #fff;
-  font-weight: 700;
-  box-shadow: 0 6px 16px rgba(255,255,255,0.05);
+  display:inline-flex; align-items:center; padding: 10px 16px;
+  border-radius: 16px; background:#fff; color: var(--chipText);
+  font-weight:700; border:1px solid rgba(255,255,255,.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,.05);
 }
-.chip .icon{ font-size: 18px; }
 
-/* Claim input + button */
-.inputRow{
-  max-width: 980px;
-  margin: 0 auto;
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+/* Input + button */
+.inputRow{ display:grid; grid-template-columns: 1fr auto; gap:10px; max-width: 560px; }
+.input{
+  background:#000; color:#fff; border:1px solid #444; border-radius:10px;
+  padding: 10px 12px;
 }
-.claim-input{
-  width:100%;
-  padding: 16px 18px;
-  border-radius: 14px;
-  background: #141414;
-  color: var(--text);
-  border: 1.5px solid rgba(255,255,255,0.9); /* whiter outline */
-  outline: none;
-}
-.claim-input::placeholder{ color:#bdbdbd; }
-
 .cta{
-  width:100%;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  font-size: 18px;
-  font-weight: 800;
-  color: #111;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-  box-shadow: 0 8px 24px rgba(245,208,97,0.25);
+  background: var(--accent); color:#111; font-weight:700;
+  border:0; border-radius:10px; padding: 10px 16px; cursor:pointer;
 }
-.cta:active{ transform: translateY(1px); }
+.cta:hover{ filter: brightness(1.05); }
 
 /* Footer links */
-.footer{
-  max-width: 1080px;
-  margin: 28px auto 40px;
-  padding: 0 16px;
-}
-.footer-links{
-  display:flex; flex-wrap:wrap;
-  justify-content:center; gap: 18px;
-}
-.footer-links a{
-  color: var(--accent);
-  font-weight: 700;
-}
-
-/* Small screens */
-@media (max-width: 420px){
-  .brand_name{ font-size: 20px; }
-  .heroLogo{ width: min(86vw, 260px); }
-  .chip{ padding: 10px 16px; }
-}
-/* Header nav links — gold */
-.nav a { 
-  color: var(--accent) !important; /* gold */
-  font-weight: 600;
-}
-
-/* Hero container */
-.hero {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 16px 24px;
-}
-
-/* Centered wrapper around the logo — removes any “card” outline */
-.heroLogoWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  overflow: visible;
-  box-shadow: none;
-}
-
-/* The logo itself: cap size, no outline */
-.heroLogo {
-  width: min(75vw, 260px);
-  height: auto;
-  display: block;
-  border: 0;
-  outline: none;
-  border-radius: 10px; /* soft corners if the image has hard edges */
-  box-shadow: none;
-}
-
-/* Headline — hard-force white */
-h1 {
-  color: #fff !important;
-}
-
+.footer{ margin-top: 24px; display:flex; flex-wrap:wrap; gap:14px; color: var(--accent); }
