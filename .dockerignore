@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.next/cache
+dist
+.git
+.github
+.vercel
+.netlify
+coverage
+playwright-report
