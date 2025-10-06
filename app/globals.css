@@ -41,21 +41,24 @@ a:hover{ text-decoration:underline; }
 .nav a{ color:var(--text); font-weight:600; }
 
 .page{ padding:48px 16px 32px; }
-
-/* Hero logo image */
-.heroLogo{
-  width: 100%;
-  max-width: 420px;   /* desktop/tablet cap */
-  height: auto;
-  display: block;
-  margin: 0 auto;     /* keep it centered */
-  border-radius: 12px;
+/* ---- Hero logo (LOCKED SIZE) ---- */
+.heroLogoWrap{
+  background: var(--panel);
+  border-radius: 22px;
+  padding: 10px;
+  overflow: hidden;        /* keeps rounded corners clean */
+  box-shadow: 0 0 0 transparent; /* no extra outline */
 }
 
-@media (max-width: 480px){
-  .heroLogo{
-    max-width: 280px; /* smaller cap on mobile */
-  }
+.heroLogo{
+  /* keep the image nicely sized and centered */
+  width: min(92vw, 720px);
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+
 }
 .title{
   font-size:clamp(28px,3.6vw,42px);
