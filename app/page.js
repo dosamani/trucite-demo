@@ -1,45 +1,50 @@
-// app/page.js
-export default function Page() {
+export default function Home() {
   return (
-    <>
-      <section className="hero">
-        <div className="heroCard">
-          <img src="/trucite.png" alt="TruCite logo" className="heroImg" />
+    <div>
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">
+          <img src="/trucite.png" alt="TruCite logo" />
         </div>
+        <div>
+          <a href="#">Home</a>
+          <a href="#">About</a>
+        </div>
+      </nav>
 
-        <h1 className="title">
-          Welcome to <b>TruCite</b>
-        </h1>
-
-        <p className="tagline">
-          The world’s first <b>Truth OS</b> — a cross-platform, real-time engine for
-          evaluating and scoring truth.
+      {/* Hero Section */}
+      <section className="hero">
+        <h1>Welcome to <span style={{ color: "#f5c518" }}>TruCite</span></h1>
+        <p>
+          The world’s first <strong>Truth OS</strong> — a cross-platform,
+          real-time engine for evaluating and scoring truth.
         </p>
 
+        {/* Feature Chips */}
         <div className="chips">
           <div className="chip">⚡ Fast</div>
           <div className="chip">🔗 Transparent</div>
           <div className="chip">✨ Plug & Play</div>
         </div>
 
+        {/* Input Row */}
         <div className="inputRow">
-          <input placeholder="Paste a claim, answer, or snippet" />
+          <input type="text" placeholder="Paste a claim, answer, or snippet" />
           <button>Check Truth</button>
         </div>
       </section>
 
-            
-
-      <div className="footer">
-        <nav className="footerNav">
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footerNav">
           <a href="#">FAQ</a>
           <a href="#">Contact Us</a>
           <a href="#">Suggestions</a>
           <a href="#">Terms</a>
           <a href="#">Privacy</a>
           <a href="#">Disclaimer</a>
-        </nav>
-      </div>
-    </>
+        </div>
+      </footer>
+    </div>
   );
 }
