@@ -28,6 +28,8 @@ export default function Page() {
         </div>
       </section>
 
+            
+
       <div className="footer">
         <nav className="footerNav">
           <a href="#">FAQ</a>
