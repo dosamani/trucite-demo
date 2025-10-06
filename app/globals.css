@@ -101,3 +101,39 @@ a:hover{ text-decoration:underline; }
   max-width:1080px; margin:0 auto; padding:18px 16px;
   display:flex; justify-content:center; gap:24px; flex-wrap:wrap;
 }
+
+/* FAQ section */
+.faq{ 
+  margin: 36px auto 24px;
+  max-width: 980px;
+  padding: 0 16px;
+}
+
+.faqTitle{
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.faqList{
+  display: grid;
+  gap: 10px;
+}
+
+.faqItem{
+  display: block;
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.faqItem:hover{
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(245, 208, 1, .25);
+}
