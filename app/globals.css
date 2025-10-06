@@ -42,22 +42,21 @@ a:hover{ text-decoration:underline; }
 
 .page{ padding:48px 16px 32px; }
 
-/* Hero */
-.hero{ max-width:1080px; margin:22px auto 0; padding:0 16px; }
-.heroCard{
-  background:var(--panel);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;
-}
-.heroImg{
-  width:min(75vw, 820px);
-  height:auto;
-  display:block;
-  border-radius:14px;
-  margin:0 auto 20px;
+/* Hero logo image */
+.heroLogo{
+  width: 100%;
+  max-width: 420px;   /* desktop/tablet cap */
+  height: auto;
+  display: block;
+  margin: 0 auto;     /* keep it centered */
+  border-radius: 12px;
 }
 
+@media (max-width: 480px){
+  .heroLogo{
+    max-width: 280px; /* smaller cap on mobile */
+  }
+}
 .title{
   font-size:clamp(28px,3.6vw,42px);
   font-weight:800;
